@@ -1,0 +1,108 @@
+/* .lineaire-simple {
+  background: linear-gradient(red, purple);
+  width: 100%;
+  height: 100vh; 
+  overflow: auto;
+} */
+
+h1 {
+    font-style: italic;
+}
+
+p {
+    color: white;
+    margin-left: 15px;
+}
+
+li {
+    color: white;
+    margin-left: 15px;
+    font-style: italic;
+}
+
+h2 {
+    font-style: italic;
+    margin-left: 15px;
+    text-align: left;
+}
+
+/* descendre ou monter barre de recherche */
+.imagedefond2 {
+    margin-top: -20px;
+}
+
+/* descendre ou monter img + bloc texte */
+.imagedefond3 {
+    margin-top: -250px;
+}
+
+strong {
+    color: black;
+}
+
+.bi-instagram {
+    margin-left: 15px;
+}
+
+.bg-image {
+    background-image: url("../img/arrierePlan.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+
+/*
+.centrer {
+  display: block;
+  position: relative;
+  left: 1.5%; 
+  text-align: left;
+  width: 97%; 
+  transform-origin: 0 0;
+}
+*/
+
+/* Contour de l'image */
+/*
+.image-align-left {
+  float: left; 
+  margin-right: 30px;
+}
+
+.image-align-right {
+  float: right; /
+}
+*/
+
+/*
+img {
+	margin-left: 1300px;
+}
+*/
+
+/*
+.additional-fields th {
+  margin-bottom: 10px;
+  margin-left: 490x;
+  bottom: 400px;
+}
+.toggle-icon {
+  cursor: pointer;
+  margin-left: 2250px;
+  color: white;
+}
+.dynamic-content {
+  display: none;
+}
+*/
+
+/*
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+*/
