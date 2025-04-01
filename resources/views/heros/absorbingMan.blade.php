@@ -50,7 +50,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
                                 </li>
-                                <li class="nav-item">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+			                    @csrf
+                                </form>
+			                    <li class="nav-item">
                                     <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" style="color: white; display: inline-block;">
                                     <i class="bi bi-instagram" style="font-size: 20px;"></i></a>
                                 </li>

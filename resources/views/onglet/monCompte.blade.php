@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <title>Mon compte</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link href="{{ asset('css/style3.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
@@ -45,8 +46,12 @@
           <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
         </li>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-    </form>
+          @csrf
+        </form>
+        <li class="nav-item">
+          <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" style="color: white; display: inline-block;">
+          <i class="bi bi-instagram" style="font-size: 20px;"></i></a>
+        </li>
       </ul>
     </div>
   </div>

@@ -231,6 +231,7 @@ body {
 }
 
 .bg-image {
+    background-image: url("../img/arrierePlan2.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
