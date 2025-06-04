@@ -11,8 +11,9 @@
 
 <body>
 
-<div class="bg-image"><!--changer dans le css-->
+  <div class="bg-image"><!--changer dans le css-->
 
+<!-- En-tête avec titre et navigation -->
 <header class="bg-dark text-white text-center py-4">
   <h1>Marvel's Heroes Origins</h1>
 </header>
@@ -44,7 +45,7 @@
           <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
         </li>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-           @csrf
+          @csrf
         </form>
         <li class="nav-item">
           <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" style="color: white; display: inline-block;">
@@ -55,32 +56,35 @@
   </div>
 </nav>
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+        <fieldset style="background-color: blue; color: white;">
+            <div class="main_content">
 
-<fieldset style="background-color: blue; color: white;">
-        <div class="titre_menu">
-            <h1> Bienvenue sur le QuizzMarvel </h1>
-        </div>
-        <div class="sous_titre">
-            <h3 style="text-decoration: underline;"> Choisissez votre thème </h3>
-        </div>    
-
-
-    <div class="content">
-        <div class="food">
-            <a class="theme_txt_personnage" href="{{ url('/onglet/quizz/quizzPersonnage/quizzChoix') }}"> Thème personnage </a>
-        </div>
-        <div class="informatique">
-            <a class="theme_txt_informatique" href="./quizz_informatique/quizz.html"> Thème de l'informatique </a>
-        </div>
-        <div class="energy">
-            <a class="theme_txt_energy" href="./quizz_energie/quizz.html"> Thème de l'énergie </a>
-        </div>
+<div id="header_screen" class="header_screen">
+    <h1 class="title"> QuizzMarvel Thème Personnage</h1>
+    <span class="sous_title"> Il y a <span class="nbrQuestion"> ?? </span> Questions </span>
+    <div>
+        <button id="btn_start" class="start"> Commencer </button>
     </div>
 </div>
+
+<div id="questions_screen" class="questions_screen">
+
+</div>
+
+<div id="result_screen" class="result_screen">
+    <h2 class=""> Résultat </h2>
+    <span class=""> Votre score est de <span id="nbrCorrects"> ?? </span> sur <span class="nbrQuestion"> ?? </span> </span>
+    <form>
+        <button type="submit" formaction="{{ url('/onglet/quizzMarvel') }}">Accueil quizz</button>
+    </form>
+</div>
+</div>
+</div>
+
 </fieldset>
-</div>
-</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('js/script4.js') }}"></script>
+
 </body>
 </html>

@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/onglet/quizzMarvel', function () {
-    return view('onglet.quizzMarvel');
-});
-
 Route::get('/onglet/monCompte', function () {
     if (Auth::check()) {
         return view('onglet.monCompte');
@@ -44,14 +40,43 @@ Route::get('/onglet/commentaire', function () {
     return view('onglet.commentaire');
 });
 
-Route::get('/onglet/quizz/quizzPersonnage/quizzPersonnage', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzPersonnage');
-});
-
-/*sommaire*/
 Route::get('/onglet/sommaire', function () {
     return view('onglet.sommaire');
 });
+
+
+/*quizz*/
+Route::get('/onglet/quizzMarvel', function () {
+    return view('onglet.quizzMarvel');
+});
+/*quizz personnage*/
+Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzChoix');
+});
+Route::get('/onglet/quizz/quizzPersonnage/quizzFacile/quizzFacilePersonnage', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzFacile.quizzFacilePersonnage');
+});
+
+Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzChoix');
+});
+Route::get('/onglet/quizz/quizzPersonnage/quizzMoyen/quizzMoyenPersonnage', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzMoyen.quizzMoyenPersonnage');
+});
+
+Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzChoix');
+});
+Route::get('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnage', function () {
+    return view('onglet.quizz.quizzPersonnage.quizzDifficile.quizzDifficilePersonnage');
+});
+
+
+
+
+
+
+
 
 /*heros*/
 Route::get('/heros/abomination', function () {

@@ -62,19 +62,19 @@
             <h1> Bienvenue sur le QuizzMarvel </h1>
         </div>
         <div class="sous_titre">
-            <h3 style="text-decoration: underline;"> Choisissez votre thème </h3>
+            <h3 style="text-decoration: underline;"> Choisissez votre niveau de difficulté </h3>
         </div>    
 
 
     <div class="content">
         <div class="food">
-            <a class="theme_txt_personnage" href="{{ url('/onglet/quizz/quizzPersonnage/quizzChoix') }}"> Thème personnage </a>
+            <a class="theme_txt_personnage" href="{{ url('/onglet/quizz/quizzPersonnage/quizzFacile/quizzFacilePersonnage') }}"> Facile </a>
         </div>
         <div class="informatique">
-            <a class="theme_txt_informatique" href="./quizz_informatique/quizz.html"> Thème de l'informatique </a>
+            <a class="theme_txt_informatique" href="{{ url('/onglet/quizz/quizzPersonnage/quizzMoyen/quizzMoyenPersonnage') }}"> Moyen </a>
         </div>
         <div class="energy">
-            <a class="theme_txt_energy" href="./quizz_energie/quizz.html"> Thème de l'énergie </a>
+            <a class="theme_txt_energy" href="{{ url('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnage') }}"> Difficile </a>
         </div>
     </div>
 </div>
