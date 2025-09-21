@@ -85,7 +85,7 @@
                 <div class="container my-4">
                     <div class="row">
                         <div class="col-md-4 img">
-                            <img src="{{ asset('img/absorbingMan.jpg') }}" class="img-fluid" alt="Absorbing Man"> <!--IMAGE HEROS + nom heros-->
+                            <img src="{{ asset('img/heros/absorbingMan.jpeg') }}" class="img-fluid" alt="Absorbing Man"> <!--IMAGE HEROS + nom heros-->
                                 <div class="text-center my-4"> 
 		 	                        <h1 style="color: white;">ABSORBING MAN</h1> <!--NOM HEROS -->
 		                        </div>
