@@ -59,10 +59,34 @@
       </div>
     </nav>
 
-            <div class="grid text-center">
-              <a href="{{ url('/onglet/typeConnexion/utilisateurs/seConnecter') }}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Utilisateur</a>
-              <a href="{{ url('/onglet/typeConnexion/moderateurs/seConnecterModerateur') }}" class="btn btn-secondary" tabindex="-1" role="button" aria-disabled="true">Moderateur</a>
+        @if($errors->has('login_error'))
+            <div class="alert alert-danger" role="alert">
+                {{ $errors->first('login_error') }}
             </div>
+        @endif
+        <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
+        <fieldset class="bg-secondary p-4 rounded shadow w-50 position-relative" style="background-image: url('{{ asset('img/spiderMan.gif') }}'); background-size: cover; background-position: center; max-width: 2000px;">
+        <form action="{{ route('loginModerateur') }}" method="POST">
+            @csrf 
+            <label class="text-white">Login :</label><br>
+            <input type="text" name="login" class="form-control mb-2" placeholder="Saisir votre login" required="required" autocomplete="off">
+            
+            <label class="text-white">Mot de passe :</label><br>
+            <input type="password" name="mdp" id="password" class="form-control mb-2" placeholder="Saisir votre mot de passe" required>
+            <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
+            <label class="form-check-label text-white">Afficher le mot de passe</label>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Valider</button>    
+                <input type="reset" value="Annuler" class="btn btn-secondary">
+            </div>
+        </form>
+    </fieldset>
+</div>
+</div> 
+</div>    
 </body>
 <script src="{{ asset('js/script2.js') }}"></script>
 </html>

@@ -56,52 +56,103 @@
         </div>
       </div>
     </nav>
-    <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
-     <fieldset class="bg-secondary p-4 rounded shadow w-50 position-relative" style="background-image: url('{{ asset('img/gorr.gif') }}'); background-size: cover; background-position: center; max-width: 2000px;">
-      <form action="{{ route('register') }}" method="post">
-          @csrf 
-          <label class="text-white">Nom :</label><br>
-          <input type="text" name="nom" class="form-control mb-2" placeholder="Saisir votre nom" autocomplete="off" required><br>
 
-          <label class="text-white">Prénom :</label><br>
-          <input type="text" name="prenom" class="form-control mb-2" placeholder="Saisir votre prénom" autocomplete="off" required><br>
+        <!-- Formulaire-->
+     <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
+  <fieldset class="bg-secondary p-4 rounded shadow w-50 position-relative" style="background-image: url('{{ asset('img/gorr.gif') }}'); background-size: cover; background-position: center; max-width: 2000px;">
+    <form action="{{ route('register') }}" method="post" class="needs-validation" novalidate>
+      @csrf 
+      
+      <div class="mb-3">
+        <label for="nom" class="form-label text-white">Nom :</label>
+        <input type="text" name="nom" id="nom" class="form-control @error('nom') is-invalid @enderror" placeholder="Saisir votre nom" value="{{ old('nom') }}" autocomplete="off" required>
+        <div class="valid-feedback">Valide !</div>
+        <div class="invalid-feedback">
+          @error('nom') {{ $message }} @else Veuillez saisir votre nom. @enderror
+        </div>
+      </div>
 
-          <label class="text-white">Login :</label><br>
-          <input type="text" name="login" class="form-control mb-2" placeholder="Saisir votre login" autocomplete="off" required><br>
+      <div class="mb-3">
+        <label for="prenom" class="form-label text-white">Prénom :</label>
+        <input type="text" name="prenom" id="prenom" class="form-control @error('prenom') is-invalid @enderror" placeholder="Saisir votre prénom" value="{{ old('prenom') }}" autocomplete="off" required>
+        <div class="valid-feedback">Valide !</div>
+        <div class="invalid-feedback">
+          @error('prenom') {{ $message }} @else Veuillez saisir votre prénom. @enderror
+        </div>
+      </div>
 
-          <label class="text-white">Mot de passe :</label><br>
-          <div class="d-flex align-items-center">
-            <input type="password" name="mdp" class="form-control mb-2" id="password" placeholder="Saisir votre mot de passe" required>
-            <a class="btn btn-info ms-2" data-bs-toggle="tooltip" title="Votre mot de passe doit contenir : 
-              - minimum 8 caractères  
-              - au moins une lettre majuscule 
-              - au moins une lettre minuscule 
-              - au moins un chiffre 
-              - au moins un caractère spécial.">
-            
-              <i class="bi bi-info-circle-fill"></i>
-            </a>
+      <div class="mb-3">
+        <label for="login" class="form-label text-white">Login :</label>
+        <input type="text" name="login" id="login" class="form-control @error('login') is-invalid @enderror" placeholder="Saisir votre login" value="{{ old('login') }}" autocomplete="off" required>
+        <div class="valid-feedback">Valide !</div>
+        <div class="invalid-feedback">
+          @error('login') {{ $message }} @else Veuillez saisir votre login. @enderror
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label text-white">Mot de passe :</label>
+        <div class="input-group has-validation">
+          <input type="password" name="mdp" class="form-control @error('mdp') is-invalid @enderror" id="password" placeholder="Saisir votre mot de passe" required>
+          <button class="btn btn-info" type="button" data-bs-toggle="tooltip" title="Votre mot de passe doit contenir : 
+            - minimum 8 caractères  
+            - au moins une lettre majuscule 
+            - au moins une lettre minuscule 
+            - au moins un chiffre 
+            - au moins un caractère spécial.">
+            <i class="bi bi-info-circle-fill"></i>
+          </button>
+          <div class="invalid-feedback">
+            @error('mdp') {{ $message }} @else Veuillez saisir un mot de passe valide. @enderror
           </div>
-  
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
-          <label class="form-check-label text-white" for="show-password">Afficher le mot de passe</label>
-        </div>           
-              <ul>
-                <button type="submit" class="btn btn-primary mt-2">Valider</button>
-                <button type="reset" class="btn btn-secondary mt-2">Effacer</button>
-              </ul>
-  
-                @if ($errors->any())
-                  <div class="alert alert-danger mt-3">
-                    <ul>
-                      @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                      @endforeach
-                    </ul>
-                  </div>
-                @endif
-      </form>
+        </div>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
+        <label class="form-check-label text-white" for="show-password">Afficher le mot de passe</label>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="reset" class="btn btn-secondary">Effacer</button>
+      </div>
+    </form>
+  </fieldset>
+</div>
+
+<script>
+// Active la validation Bootstrap
+(function () {
+  'use strict'
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+// Fonction pour afficher/masquer le mot de passe
+function togglePasswordVisibility() {
+  var passwordField = document.getElementById('password');
+  if (passwordField.type === 'password') {
+    passwordField.type = 'text';
+  } else {
+    passwordField.type = 'password';
+  }
+}
+
+// Active les tooltips Bootstrap
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
     </fieldset>
     </div>
    </div> 

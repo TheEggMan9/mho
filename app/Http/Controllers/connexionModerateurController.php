@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Compte;
+use App\Models\CompteModerateur;
 
-class ConnexionController extends Controller
+class connexionModerateurController extends Controller
 {
     public function showLoginForm()
     {
-        return view('onglet.typeConnexion.utilisateurs.seConnecter');
+        return view('onglet.typeConnexion.moderateurs.seConnecterModerateur');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('login', 'mdp');
 
-        $user = Compte::where('login', $credentials['login'])->first();
+        $user = CompteModerateur::where('login', $credentials['login'])->first();
 
         if (!$user || $credentials['mdp'] !== $user->mdp) {
             return back()->withErrors(['login_error' => 'Identifiants incorrects. Veuillez réessayer']);
         }
 
         Auth::login($user);
-        return redirect('/')->with('success', 'Heureux de vous revoir ' . $user->prenom . ' !');
+        return redirect('/moderateurs/indexModerateur')->with('success', 'Heureux de vous revoir cher modérateur' . $user->prenom . ' !');
     }
 
     public function logout()

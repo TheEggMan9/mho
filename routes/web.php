@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+/************************************************************************************************************************************************************/
+/*PARTIE UTILISATEUR*****************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
 Route::get('/', function () {
     return view('index');
 });
@@ -27,9 +31,12 @@ Route::get('/onglet/monCompte', function () {
 
 Route::delete('/', 'App\Http\Controllers\supprimerCompteController@destroy')->name('destroy');
 
+Route::get('/onglet/seConnecter', function () {
+    return view('onglet.seConnecter');
+});
 
-Route::get('/onglet/seConnecter', 'App\Http\Controllers\connexionController@showLoginForm')->name('showLoginForm');
-Route::post('/onglet/seConnecter', 'App\Http\Controllers\connexionController@login')->name('login');
+Route::get('/onglet/typeConnexion/utilisateurs/seConnecter', 'App\Http\Controllers\connexionController@showLoginForm')->name('showLoginForm');
+Route::post('/onglet/typeConnexion/utilisateurs/seConnecter', 'App\Http\Controllers\connexionController@login')->name('loginUtilisateur');
 
 Route::get('/onglet/creerCompte', 'App\Http\Controllers\CreerCompteController@showRegistrationForm');
 Route::post('/onglet/creerCompte', 'App\Http\Controllers\CreerCompteController@register')->name('register');
@@ -43,6 +50,38 @@ Route::get('/onglet/commentaire', function () {
 Route::get('/onglet/sommaire', function () {
     return view('onglet.sommaire');
 });
+/************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
+
+
+
+
+
+
+
+/************************************************************************************************************************************************************/
+/*PARTIE MODERATEUR*****************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
+Route::get('/moderateurs/indexModerateur', function () {
+    return view('moderateurs.indexModerateur');
+});
+
+Route::get('/onglet/typeConnexion/moderateurs/seConnecterModerateur', 'App\Http\Controllers\connexionModerateurController@showLoginForm')->name('showLoginForm');
+Route::post('/onglet/typeConnexion/seConnecterModerateur', 'App\Http\Controllers\connexionModerateurController@login')->name('loginModerateur');
+
+
+
+/************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************/
+
+
+
+
+
+
+
 
 
 /*quizz*/
