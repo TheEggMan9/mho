@@ -1,162 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Créer un compte</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <link href="{{ asset('css/style3.css') }}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="{{ asset('css/style3.css') }}" rel="stylesheet">
 </head>
 
 <body>
-   
-  <div class="bg-image">
+<div class="bg-image">
 
+<header class="text-white text-center py-4">
+  <h1><i class="bi bi-person-plus-fill"></i> Créer un compte</h1>
+</header>
 
-    <header class="bg-dark text-white text-center py-4">
-      <h1>Créer un compte</h1>
-    </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-house-fill"></i> Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/onglet/sommaire') }}"><i class="bi bi-list-ul"></i> Sommaire</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/onglet/monCompte') }}"><i class="bi bi-person-circle"></i> Mon compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/onglet/quizzMarvel') }}"><i class="bi bi-patch-question-fill"></i> Quizz</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right"></i> Se déconnecter</a>
+        </li>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+        <li class="nav-item">
+          <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" class="nav-link">
+            <i class="bi bi-instagram"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-    <!-- Barre de navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
-              <a class="nav-link" href="{{ url('/') }}">Accueil</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ url('/onglet/sommaire') }}">Sommaire</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ url('/onglet/monCompte') }}">Mon compte</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ url('/onglet/seConnecter') }}">Se connecter</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('/onglet/quizzMarvel') }}">Quizz</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
-          </li>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              @csrf
-            </form>
-          <li class="nav-item">
-            <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" style="color: white; display: inline-block;">
-            <i class="bi bi-instagram" style="font-size: 20px;"></i></a>
-          </li>
+<div class="container d-flex justify-content-center align-items-center" style="min-height:70vh">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <h2><i class="bi bi-person-plus-fill"></i> Inscription</h2>
+        <p>Créez votre compte pour accéder à l'application</p>
+      </div>
+
+      {{-- erreurs Laravel --}}
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
           </ul>
         </div>
-      </div>
-    </nav>
+      @endif
 
-        <!-- Formulaire-->
-     <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
-  <fieldset class="bg-secondary p-4 rounded shadow w-50 position-relative" style="background-image: url('{{ asset('img/gorr.gif') }}'); background-size: cover; background-position: center; max-width: 2000px;">
-    <form action="{{ route('register') }}" method="post" class="needs-validation" novalidate>
-      @csrf 
-      
-      <div class="mb-3">
-        <label for="nom" class="form-label text-white">Nom :</label>
-        <input type="text" name="nom" id="nom" class="form-control @error('nom') is-invalid @enderror" placeholder="Saisir votre nom" value="{{ old('nom') }}" autocomplete="off" required>
-        <div class="valid-feedback">Valide !</div>
-        <div class="invalid-feedback">
-          @error('nom') {{ $message }} @else Veuillez saisir votre nom. @enderror
+      <form action="{{ route('register') }}" method="POST" class="needs-validation" novalidate>
+        @csrf
+
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input type="text" name="nom" class="form-control" required>
+          <div class="invalid-feedback">Nom requis</div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="prenom" class="form-label text-white">Prénom :</label>
-        <input type="text" name="prenom" id="prenom" class="form-control @error('prenom') is-invalid @enderror" placeholder="Saisir votre prénom" value="{{ old('prenom') }}" autocomplete="off" required>
-        <div class="valid-feedback">Valide !</div>
-        <div class="invalid-feedback">
-          @error('prenom') {{ $message }} @else Veuillez saisir votre prénom. @enderror
+        <div class="mb-3">
+          <label class="form-label">Prénom</label>
+          <input type="text" name="prenom" class="form-control" required>
+          <div class="invalid-feedback">Prénom requis</div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="login" class="form-label text-white">Login :</label>
-        <input type="text" name="login" id="login" class="form-control @error('login') is-invalid @enderror" placeholder="Saisir votre login" value="{{ old('login') }}" autocomplete="off" required>
-        <div class="valid-feedback">Valide !</div>
-        <div class="invalid-feedback">
-          @error('login') {{ $message }} @else Veuillez saisir votre login. @enderror
+        <div class="mb-3">
+          <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
+          <input type="email" name="email" class="form-control" required>
+          <div div class="invalid-feedback">Email requis</div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label text-white">Mot de passe :</label>
-        <div class="input-group has-validation">
-          <input type="password" name="mdp" class="form-control @error('mdp') is-invalid @enderror" id="password" placeholder="Saisir votre mot de passe" required>
-          <button class="btn btn-info" type="button" data-bs-toggle="tooltip" title="Votre mot de passe doit contenir : 
-            - minimum 8 caractères  
-            - au moins une lettre majuscule 
-            - au moins une lettre minuscule 
-            - au moins un chiffre 
-            - au moins un caractère spécial.">
-            <i class="bi bi-info-circle-fill"></i>
-          </button>
-          <div class="invalid-feedback">
-            @error('mdp') {{ $message }} @else Veuillez saisir un mot de passe valide. @enderror
+
+        <div class="mb-3">
+          <label class="form-label"><i class="bi bi-lock-fill"></i> Mot de passe</label>
+          <div class="input-group">
+            <input type="password" name="mdp" id="password" class="form-control" required>
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+              <i class="bi bi-eye"></i>
+            </button>
           </div>
+          <small class="text-muted d-block mt-1">
+            8 caractères minimum, avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial
+          </small>
+          <div class="invalid-feedback">Mot de passe invalide</div>
         </div>
-      </div>
 
-      <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
-        <label class="form-check-label text-white" for="show-password">Afficher le mot de passe</label>
-      </div>
+        <button class="btn btn-primary w-100 mb-3" type="submit">
+          <i class="bi bi-person-plus-fill me-2"></i>Créer mon compte
+        </button>
 
-      <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary">Valider</button>
-        <button type="reset" class="btn btn-secondary">Effacer</button>
-      </div>
-    </form>
-  </fieldset>
+        <div class="text-center mt-4">
+          <p class="text-muted">Vous avez déjà un compte ? <a href="{{ url('/onglet/seConnecter') }}" class="text-primary fw-bold">Connectez-vous</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Active la validation Bootstrap
-(function () {
+// Toggle password visibility
+document.getElementById('togglePassword').addEventListener('click', function() {
+  const password = document.getElementById('password');
+  const icon = this.querySelector('i');
+  
+  if (password.type === 'password') {
+    password.type = 'text';
+    icon.classList.remove('bi-eye');
+    icon.classList.add('bi-eye-slash');
+  } else {
+    password.type = 'password';
+    icon.classList.remove('bi-eye-slash');
+    icon.classList.add('bi-eye');
+  }
+});
+
+// Form validation
+(() => {
   'use strict'
-  var forms = document.querySelectorAll('.needs-validation')
-  Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener('submit', function (event) {
+  const forms = document.querySelectorAll('.needs-validation')
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      const password = document.getElementById('password').value
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/
+
+      if (!regex.test(password)) {
+        event.preventDefault()
+        document.getElementById('password').classList.add('is-invalid')
+      }
+
       if (!form.checkValidity()) {
         event.preventDefault()
         event.stopPropagation()
       }
+
       form.classList.add('was-validated')
-    }, false)
+    })
   })
 })()
-
-// Fonction pour afficher/masquer le mot de passe
-function togglePasswordVisibility() {
-  var passwordField = document.getElementById('password');
-  if (passwordField.type === 'password') {
-    passwordField.type = 'text';
-  } else {
-    passwordField.type = 'password';
-  }
-}
-
-// Active les tooltips Bootstrap
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-})
 </script>
-    </fieldset>
-    </div>
-   </div> 
- </div>     
 </body>
-<script src="{{ asset('js/script2.js') }}"></script>
 </html>

@@ -15,9 +15,9 @@ class connexionModerateurController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('login', 'mdp');
+        $credentials = $request->only('email', 'mdp');
 
-        $user = CompteModerateur::where('login', $credentials['login'])->first();
+        $user = CompteModerateur::where('email', $credentials['email'])->first();
 
         if (!$user || $credentials['mdp'] !== $user->mdp) {
             return back()->withErrors(['login_error' => 'Identifiants incorrects. Veuillez réessayer']);

@@ -14,7 +14,7 @@ class CompteModerateur extends Authenticatable
     protected $fillable = [
         'nom',
         'prenom',
-        'login',
+        'email',
         'mdp'
     ];
 

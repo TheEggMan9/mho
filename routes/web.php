@@ -29,7 +29,7 @@ Route::get('/onglet/monCompte', function () {
     }
 });
 
-Route::delete('/', 'App\Http\Controllers\supprimerCompteController@destroy')->name('destroy');
+Route::delete('/supprimer-compte', 'App\Http\Controllers\supprimerCompteController@destroy')->name('destroy');
 
 Route::get('/onglet/seConnecter', function () {
     return view('onglet.seConnecter');

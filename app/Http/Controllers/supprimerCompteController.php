@@ -1,25 +1,48 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash; // important !
 
-class supprimerCompteController extends Controller
+class SupprimerCompteController extends Controller
 {
     public function destroy(Request $request)
-{
-    $user = Auth::user();
+    {
+        // Vérifier que l'utilisateur est connecté
+        if (!Auth::check()) {
+            return redirect()->route('seConnecter')
+                ->withErrors(['error' => 'Vous devez être connecté pour supprimer votre compte.']);
+        }
 
-    if (Hash::check($request->password, $user->mdp)) {
-        $user->delete();
+        // Validation
+        $request->validate([
+            'password' => 'required'
+        ], [
+            'password.required' => 'Le mot de passe est requis pour supprimer votre compte.'
+        ]);
 
+        $user = Auth::user();
+
+        // Vérification du mot de passe hashé
+        if (!Hash::check($request->password, $user->mdp)) {
+            return back()->withErrors([
+                'password' => 'Le mot de passe est incorrect.'
+            ]);
+        }
+
+        // Déconnexion AVANT suppression
         Auth::logout();
 
-        return redirect('/')->with('success', 'Votre compte a été supprimé avec succès.');
-    } else {
-        return back()->withErrors(['password' => 'Le mot de passe est incorrect.']);
+        // Suppression du compte
+        $user->delete();
+
+        // Nettoyage session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')
+            ->with('success', 'Votre compte a été supprimé avec succès.');
     }
 }
-
-}
-

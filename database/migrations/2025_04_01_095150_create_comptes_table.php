@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom', 30);
             $table->string('prenom', 30);
-            $table->string('login', 30)->unique();
+            $table->string('email', 30)->unique();
             $table->string('mdp', 255);
             $table->timestamps();
         });

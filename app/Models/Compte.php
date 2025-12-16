@@ -14,7 +14,7 @@ class Compte extends Authenticatable
     protected $fillable = [
         'nom',
         'prenom',
-        'login',
+        'email',
         'mdp'
     ];
 

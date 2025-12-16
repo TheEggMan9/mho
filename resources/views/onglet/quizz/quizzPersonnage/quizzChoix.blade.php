@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,77 +10,82 @@
 </head>
 
 <body>
+<div class="bg-image">
 
-<div class="bg-image"><!--changer dans le css-->
-
-<header class="bg-dark text-white text-center py-4">
-  <h1>Marvel's Heroes Origins</h1>
+<header class="text-white text-center py-4">
+  <h1><i class="bi bi-lightning-charge-fill"></i> Marvel's Heroes Origins</h1>
 </header>
 
-<!-- Barre de navigation responsive -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-        <a class="nav-link" href="{{ url('/') }}">Accueil</a>
+          <a class="nav-link" href="{{ url('/') }}"><i class="bi bi-house-fill"></i> Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/sommaire') }}">Sommaire</a>
+          <a class="nav-link" href="{{ url('/onglet/sommaire') }}"><i class="bi bi-list-ul"></i> Sommaire</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/monCompte') }}">Mon compte</a>
+          <a class="nav-link" href="{{ url('/onglet/monCompte') }}"><i class="bi bi-person-circle"></i> Mon compte</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/seConnecter') }}">Se connecter</a>
+          <a class="nav-link" href="{{ url('/onglet/seConnecter') }}"><i class="bi bi-box-arrow-in-right"></i> Se connecter</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/creerCompte') }}">Créer un compte</a>
+          <a class="nav-link" href="{{ url('/onglet/creerCompte') }}"><i class="bi bi-person-plus-fill"></i> Créer un compte</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
+          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right"></i> Se déconnecter</a>
         </li>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
            @csrf
         </form>
         <li class="nav-item">
-          <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" style="color: white; display: inline-block;">
-          <i class="bi bi-instagram" style="font-size: 20px;"></i></a>
+          <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" class="nav-link">
+            <i class="bi bi-instagram"></i>
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="container py-5">
+  <div class="quiz-container">
+    <h1 class="quiz-title-red">
+      <i class="bi bi-patch-question-fill"></i> Testez vos connaissances sur l'uners Marvel !
+    </h1>
+    <p class="quiz-subtitle">
+       Choisissez votre niveau de difficulté :
+    </p>
 
-<fieldset style="background-color: blue; color: white;">
-        <div class="titre_menu">
-            <h1> Bienvenue sur le QuizzMarvel </h1>
-        </div>
-        <div class="sous_titre">
-            <h3 style="text-decoration: underline;"> Choisissez votre niveau de difficulté </h3>
-        </div>    
+    <div class="difficulty-cards">
+      <a href="{{ url('/onglet/quizz/quizzPersonnage/quizzFacile/quizzFacilePersonnage') }}" class="difficulty-card easy">
+        <span class="difficulty-icon">🌟</span>
+        <div class="difficulty-title">Facile</div>
+        <p class="difficulty-description">Parfait pour débuter votre aventure Marvel</p>
+      </a>
 
+      <a href="{{ url('/onglet/quizz/quizzPersonnage/quizzMoyen/quizzMoyenPersonnage') }}" class="difficulty-card medium">
+        <span class="difficulty-icon">⚡</span>
+        <div class="difficulty-title">Moyen</div>
+        <p class="difficulty-description">Pour les fans qui connaissent leurs héros</p>
+      </a>
 
-    <div class="content">
-        <div class="food">
-            <a class="theme_txt_personnage" href="{{ url('/onglet/quizz/quizzPersonnage/quizzFacile/quizzFacilePersonnage') }}"> Facile </a>
-        </div>
-        <div class="informatique">
-            <a class="theme_txt_informatique" href="{{ url('/onglet/quizz/quizzPersonnage/quizzMoyen/quizzMoyenPersonnage') }}"> Moyen </a>
-        </div>
-        <div class="energy">
-            <a class="theme_txt_energy" href="{{ url('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnage') }}"> Difficile </a>
-        </div>
+      <a href="{{ url('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnage') }}" class="difficulty-card hard">
+        <span class="difficulty-icon">🔥</span>
+        <div class="difficulty-title">Difficile</div>
+        <p class="difficulty-description">Réservé aux vrais experts de l'univers Marvel</p>
+      </a>
     </div>
+  </div>
 </div>
-</fieldset>
 </div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
