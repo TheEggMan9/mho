@@ -255,7 +255,7 @@
           <span>Naviguez facilement parmi tous les personnages</span>
         </div>
       </div>
-    </div>
+    
 
       <div class="feature-item">
         <div class="feature-icon">🎮</div>
@@ -264,7 +264,7 @@
           <span>Testez vos connaissances avec nos quiz par thème</span>
         </div>
       </div>
-    
+    </div>
     <!-- Call to Action -->
     <div class="cta-button">
       <a href="{{ url('/') }}">Commencer l'aventure</a>

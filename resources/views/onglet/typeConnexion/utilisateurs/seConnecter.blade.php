@@ -30,20 +30,31 @@
           <a class="nav-link" href="{{ url('/onglet/sommaire') }}"><i class="bi bi-list-ul"></i> Sommaire</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/monCompte') }}"><i class="bi bi-person-circle"></i> Mon compte</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/creerCompte') }}"><i class="bi bi-person-plus-fill"></i> Créer un compte</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{{ url('/onglet/quizzMarvel') }}"><i class="bi bi-patch-question-fill"></i> Quizz</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right"></i> Se déconnecter</a>
-        </li>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-        </form>
+          @if (Auth::check())
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/onglet/monCompte') }}"><i class="bi bi-person-circle"></i> Mon compte</a>
+                </li>
+          @endif
+
+          @if (!Auth::check())
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/onglet/seConnecter') }}"><i class="bi bi-box-arrow-in-right"></i> Se connecter</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url('/onglet/creerCompte') }}"><i class="bi bi-person-plus-fill"></i> Créer un compte</a>
+                </li>
+          @endif
+          
+          @if (Auth::check())
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right"></i> Se déconnecter</a>
+                </li>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+          @endif
         <li class="nav-item">
           <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank" class="nav-link">
             <i class="bi bi-instagram"></i>

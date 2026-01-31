@@ -24,6 +24,13 @@ class WelcomeEmail extends Mailable
         $this->user = $user;
     }
 
+    public function build()
+    {
+        return $this->from('marvelseroesorigins@gmail.com', "Marvel's Heroes Origins")
+                    ->subject('Bienvenue sur Marvel\'s Heroes Origins')
+                    ->view('emails.welcome');
+    }
+
     /**
      * Get the message envelope.
      */
