@@ -83,10 +83,10 @@
         <div class="collapse" id="collapseA">
           <div class="hero-list">
             <a href="{{ url('/heros/abomination') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Abomination</a>
-            <a href="{{ url('/heros/absorbingMan')}}" class="hero-link"><i class="bi bi-chevron-right"></i> Absorbing Man</a>
-            <a href="heros/adamWarlock" class="hero-link"><i class="bi bi-chevron-right"></i> Adam Warlock</a>
-            <a href="heros/aero" class="hero-link"><i class="bi bi-chevron-right"></i> Aero</a>
-            <a href="heros/agathaArkness" class="hero-link"><i class="bi bi-chevron-right"></i> Agatha Arkness</a>
+            <a href="{{ url('/heros/absorbingMan') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Absorbing Man</a>
+            <a href="{{ url ('/heros/adamWarlock') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Adam Warlock</a>
+            <a href="{{ url ('/heros/aero') }} " class="hero-link"><i class="bi bi-chevron-right"></i> Aero</a>
+            <a href="heros/agathaHarkness" class="hero-link"><i class="bi bi-chevron-right"></i> Agatha Arkness</a>
             <a href="heros/agent13" class="hero-link"><i class="bi bi-chevron-right"></i> Agent 13</a>
             <a href="heros/agentCoulson" class="hero-link"><i class="bi bi-chevron-right"></i> Agent Coulson</a>
             <a href="heros/americaChavez" class="hero-link"><i class="bi bi-chevron-right"></i> America Chavez</a>
