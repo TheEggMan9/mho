@@ -67,21 +67,36 @@
 
 <!-- Barre de recherche -->
 <div class="container text-center py-4">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <form autocomplete="off" class="search-form">
-        <div class="search-wrapper">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-search"></i>
-            </span>
-            <input type="text" class="form-control border-start-0 ps-0" id="input" placeholder="Rechercher un personnage Marvel..." />
-          </div>
-          <ul class="list list-group"></ul>
+    <form id="searchForm" 
+          data-baseurl="{{ url('heros') }}"
+          data-searchurl="{{ url('/search') }}"
+          data-resultatsurl="{{ url('/fiches/resultats') }}">
+        <div class="input-group mb-2">
+            <input type="text" class="form-control" id="input" placeholder="Rechercher un personnage...">
+            <button class="btn btn-primary" type="submit">Rechercher</button>
         </div>
-      </form>
-    </div>
-  </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <select id="especeFilter" class="form-select">
+                    <option value="">Toutes les espèces</option>
+                    @foreach(App\Models\Espece::all() as $espece)
+                        <option value="{{ $espece->id }}">{{ $espece->nomEspece }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col">
+                <select id="orgFilter" class="form-select">
+                    <option value="">Toutes les organisations</option>
+                    @foreach(App\Models\Organisation::all() as $org)
+                        <option value="{{ $org->id }}">{{ $org->nomOrganisation }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <ul class="list list-group"></ul>
+    </form>
 </div>
 
 <!-- Contenu principal du héros -->
@@ -144,7 +159,7 @@
 
 </div>
 
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/barreRecherche.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // Logout button

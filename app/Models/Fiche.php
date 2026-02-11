@@ -6,7 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fiche extends Model
 {
-    protected $table = 'fiches';
-    protected $fillable = ['nomFiche','slug'];
-}
+    protected $fillable = [
+        'nomFiche',
+        'slug',
+        'image',
+        'espece_id',
+        'organisation_id',
+    ];
 
+    public function espece()
+    {
+        return $this->belongsTo(Espece::class);
+    }
+
+    public function organisation()
+    {
+        return $this->belongsTo(Organisation::class);
+    }
+}

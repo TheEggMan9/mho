@@ -112,8 +112,16 @@ Route::get('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnag
 
 
 
-
 use App\Http\Controllers\SearchController;
 
+// Autocomplétion AJAX
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Fiche détaillée
 Route::get('/heros/{slug}', [SearchController::class, 'show'])->name('fiche.show');
+
+// Résultats filtrés (espèce / organisation)
+Route::get('/fiches/resultats', [SearchController::class, 'resultats'])->name('fiches.resultats');
+
+
+

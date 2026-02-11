@@ -96,120 +96,37 @@
 
 <!-- Barre de recherche -->
 <div class="container text-center py-4">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <form autocomplete="off" class="search-form" id="searchForm" data-baseurl="{{ url('heros') }}">
-        <div class="search-wrapper">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-search"></i>
-            </span>
-            <input
-              type="text"
-              class="form-control border-start-0 ps-0"
-              id="input"
-              placeholder="Rechercher un personnage Marvel..."
-            />
-          </div>
-          <ul class="list list-group"></ul>
+    <form id="searchForm" 
+          data-baseurl="{{ url('heros') }}"
+          data-searchurl="{{ url('/search') }}"
+          data-resultatsurl="{{ url('/fiches/resultats') }}">
+        <div class="input-group mb-2">
+            <input type="text" class="form-control" id="input" placeholder="Rechercher un personnage...">
+            <button class="btn btn-primary" type="submit">Rechercher</button>
         </div>
-      </form>
-    </div>
-  </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <select id="especeFilter" class="form-select">
+                    <option value="">Toutes les espèces</option>
+                    @foreach(App\Models\Espece::all() as $espece)
+                        <option value="{{ $espece->id }}">{{ $espece->nomEspece }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col">
+                <select id="orgFilter" class="form-select">
+                    <option value="">Toutes les organisations</option>
+                    @foreach(App\Models\Organisation::all() as $org)
+                        <option value="{{ $org->id }}">{{ $org->nomOrganisation }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <ul class="list list-group"></ul>
+    </form>
 </div>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const input = document.getElementById("input");
-    const list = document.querySelector(".list");
-    const form = document.getElementById("searchForm");
-    const baseURL = form.dataset.baseurl;
-
-    let results = []; // stocke les résultats venant de la DB
-
-    function removeElements() {
-        list.innerHTML = "";
-    }
-
-    // AUTOCOMPLETE
-    input.addEventListener("keyup", function () {
-        const value = input.value.trim();
-
-        removeElements();
-        if (!value) return;
-
-        fetch(`{{ url('/search') }}?q=${encodeURIComponent(value)}`)
-            .then(res => res.json())
-            .then(data => {
-                results = data;
-
-                data.forEach(item => {
-                    if (
-                        item.nomFiche.toLowerCase().startsWith(value.toLowerCase())
-                    ) {
-                        let listItem = document.createElement("li");
-                        listItem.classList.add("list-group-item");
-                        listItem.style.cursor = "pointer";
-
-                        // STYLE
-                        listItem.style.backgroundColor = "#f8f9fa";
-                        listItem.style.color = "#343a40";
-
-                        listItem.onmouseover = function () {
-                            this.style.backgroundColor = "#007bff";
-                            this.style.color = "white";
-                        };
-                        listItem.onmouseout = function () {
-                            this.style.backgroundColor = "#f8f9fa";
-                            this.style.color = "#343a40";
-                        };
-
-                        // Texte avec partie en gras
-                        let word = "<b>" + item.nomFiche.substr(0, value.length) + "</b>";
-                        word += item.nomFiche.substr(value.length);
-                        listItem.innerHTML = word;
-
-                        // REDIRECTION AU CLIC
-                        listItem.addEventListener("click", function () {
-                            window.location.href = `${baseURL}/${item.slug}`;
-                        });
-
-                        list.appendChild(listItem);
-                    }
-                });
-            });
-    });
-
-    // ENTRÉE
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        if (results.length > 0) {
-            window.location.href = `${baseURL}/${results[0].slug}`;
-        } else {
-            alert("Héros non trouvé dans la base !");
-        }
-    });
-});
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- Section principale avec hero et description -->
 <div class="container py-5">
@@ -243,6 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/barreRecherche.js') }}"></script>
 </body>
 </html>
