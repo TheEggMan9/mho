@@ -1,0 +1,224 @@
+/* ==================== STYLES PAGE SOMMAIRE ==================== */
+
+/* Container du sommaire */
+.sommaire-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* AJOUTÉ */
+    overflow-x: hidden; /* AJOUTÉ */
+}
+
+.sommaire-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sommaire-header h2 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.sommaire-header p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Grille alphabétique - UNE SEULE FOIS */
+.alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    width: 100%; /* AJOUTÉ */
+    max-width: 100%; /* AJOUTÉ */
+    overflow-x: hidden; /* AJOUTÉ */
+}
+
+/* Carte de lettre */
+.letter-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    overflow: visible;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.letter-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Quand la carte est ouverte, augmenter le z-index */
+.letter-card:has(.collapse.show) {
+    z-index: 1000;
+}
+
+/* Bouton de lettre */
+.btn-letter {
+    width: 100%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: none;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+}
+
+.btn-letter:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: scale(1.02);
+}
+
+.btn-letter[aria-expanded="true"] {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* Flèche indicatrice */
+.btn-letter::after {
+    content: "\f282"; /* Code Bootstrap Icons pour chevron-down */
+    font-family: "bootstrap-icons";
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.75rem;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease;
+}
+
+/* Rotation de la flèche quand ouvert */
+.btn-letter[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Animation au survol de la flèche */
+.btn-letter:hover::after {
+    color: white;
+}
+
+.letter-icon {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.letter-count {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* Le collapse en position relative */
+.letter-card .collapse {
+    position: relative;
+}
+
+/* Liste des héros en position absolue pour passer au-dessus */
+.hero-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%; /* AJOUTÉ */
+    max-width: 100%; /* AJOUTÉ */
+    padding: 1rem;
+    background: white;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden; /* AJOUTÉ */
+    z-index: 1001;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box; /* AJOUTÉ */
+}
+
+.hero-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    overflow: hidden; /* AJOUTÉ */
+    text-overflow: ellipsis; /* AJOUTÉ */
+    white-space: nowrap; /* AJOUTÉ */
+}
+
+.hero-link:hover {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.hero-link i {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Scrollbar personnalisée pour la liste */
+.hero-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.hero-list::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    border-radius: 10px;
+}
+
+.hero-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-radius: 10px;
+}
+
+.hero-list::-webkit-scrollbar-thumb:hover {
+    background: #c0392b;
+}
+
+/* Responsive pour sommaire */
+@media (max-width: 768px) {
+    .alphabet-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+
+    .sommaire-header {
+        padding: 1.5rem;
+    }
+
+    .sommaire-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .letter-icon {
+        font-size: 2rem;
+    }
+
+    .btn-letter {
+        padding: 1rem 0.75rem;
+    }
+
+    .hero-list {
+        max-height: 300px;
+    }
+}

@@ -1,119 +1,142 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ConnexionController;
+use App\Http\Controllers\connexionModerateurController;
+use App\Http\Controllers\CreerCompteController;
+use App\Http\Controllers\supprimerCompteController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-
-/************************************************************************************************************************************************************/
-/*PARTIE UTILISATEUR*****************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
+/*
+|--------------------------------------------------------------------------
+| Routes Publiques
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('index');
-});
-
-Route::get('/onglet/monCompte', function () {
-    if (Auth::check()) {
-        return view('onglet.monCompte');
-    } else {
-        return redirect('/onglet/seConnecter');
-    }
-});
-
-Route::delete('/supprimer-compte', 'App\Http\Controllers\supprimerCompteController@destroy')->name('destroy');
-
-Route::get('/onglet/seConnecter', function () {
-    return view('onglet.seConnecter');
-});
-
-Route::get('/onglet/typeConnexion/utilisateurs/seConnecter', 'App\Http\Controllers\connexionController@showLoginForm')->name('showLoginForm');
-Route::post('/onglet/typeConnexion/utilisateurs/seConnecter', 'App\Http\Controllers\connexionController@login')->name('loginUtilisateur');
-
-Route::get('/onglet/creerCompte', 'App\Http\Controllers\CreerCompteController@showRegistrationForm');
-Route::post('/onglet/creerCompte', 'App\Http\Controllers\CreerCompteController@register')->name('register');
-
-Route::post('/onglet/logout', 'App\Http\Controllers\connexionController@logout')->name('logout');
-
-Route::get('/onglet/commentaire', function () {
-    return view('onglet.commentaire');
-});
+})->name('home');
 
 Route::get('/onglet/sommaire', function () {
     return view('onglet.sommaire');
-});
-/************************************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
+})->name('sommaire');
 
+Route::get('/onglet/commentaire', function () {
+    return view('onglet.commentaire');
+})->name('commentaire');
 
+/*
+|--------------------------------------------------------------------------
+| Routes d'Authentification - Utilisateurs
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
+    // Afficher le choix de connexion
+    Route::get('/onglet/seConnecter', function () {
+        return view('onglet.seConnecter');
+    })->name('login.choice');
 
+    // Connexion utilisateur
+    Route::get('/onglet/typeConnexion/utilisateurs/seConnecter', [ConnexionController::class, 'showLoginForm'])
+        ->name('login');
+    Route::post('/onglet/typeConnexion/utilisateurs/seConnecter', [ConnexionController::class, 'login'])
+        ->name('loginUtilisateur');
 
-
-
-
-/************************************************************************************************************************************************************/
-/*PARTIE MODERATEUR*****************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
-Route::get('/moderateurs/indexModerateur', function () {
-    return view('moderateurs.indexModerateur');
-});
-
-Route::get('/onglet/typeConnexion/moderateurs/seConnecterModerateur', 'App\Http\Controllers\connexionModerateurController@showLoginForm')->name('showLoginForm');
-Route::post('/onglet/typeConnexion/seConnecterModerateur', 'App\Http\Controllers\connexionModerateurController@login')->name('loginModerateur');
-
-
-
-/************************************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
-/************************************************************************************************************************************************************/
-
-
-
-
-
-
-
-
-
-/*quizz*/
-Route::get('/onglet/quizzMarvel', function () {
-    return view('onglet.quizzMarvel');
-});
-/*quizz personnage*/
-Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzChoix');
-});
-Route::get('/onglet/quizz/quizzPersonnage/quizzFacile/quizzFacilePersonnage', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzFacile.quizzFacilePersonnage');
+    // Inscription utilisateur
+    Route::get('/onglet/creerCompte', [CreerCompteController::class, 'showRegistrationForm'])
+        ->name('register');
+    Route::post('/onglet/creerCompte', [CreerCompteController::class, 'register']);
 });
 
-Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzChoix');
+// Déconnexion (accessible uniquement si authentifié)
+Route::post('/logout', [ConnexionController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+
+/*
+|--------------------------------------------------------------------------
+| Routes Protégées - Utilisateurs
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    // Mon compte
+    Route::get('/onglet/monCompte', function () {
+        return view('onglet.monCompte');
+    })->name('account');
+
+    // Suppression de compte
+    Route::delete('/supprimer-compte', [supprimerCompteController::class, 'destroy'])
+        ->name('account.destroy');
 });
-Route::get('/onglet/quizz/quizzPersonnage/quizzMoyen/quizzMoyenPersonnage', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzMoyen.quizzMoyenPersonnage');
+
+/*
+|--------------------------------------------------------------------------
+| Routes d'Authentification - Modérateurs
+|--------------------------------------------------------------------------
+*/
+Route::prefix('moderateurs')->name('moderateur.')->group(function () {
+    Route::middleware('guest:moderateur')->group(function () {
+        // Connexion modérateur
+        Route::get('/seConnecter', [connexionModerateurController::class, 'showLoginForm'])
+            ->name('login');
+        Route::post('/seConnecter', [connexionModerateurController::class, 'login'])
+            ->name('loginPost');
+    });
+
+    // Déconnexion modérateur
+    Route::post('/logout', [connexionModerateurController::class, 'logout'])
+        ->middleware('auth:moderateur')
+        ->name('logout');
+
+    // Routes protégées modérateur
+    Route::middleware(['auth:moderateur'])->group(function () {
+        Route::get('/indexModerateur', function () {
+            return view('moderateurs.indexModerateur');
+        })->name('index');
+    });
 });
 
-Route::get('/onglet/quizz/quizzPersonnage/quizzChoix', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzChoix');
+/*
+|--------------------------------------------------------------------------
+| Routes Quizz
+|--------------------------------------------------------------------------
+*/
+Route::prefix('onglet/quizz')->name('quizz.')->group(function () {
+    // Page principale des quizz
+    Route::get('/quizzMarvel', function () {
+        return view('onglet.quizzMarvel');
+    })->name('index');
+
+    // Quizz Personnage
+    Route::prefix('quizzPersonnage')->name('personnage.')->group(function () {
+        Route::get('/quizzChoix', function () {
+            return view('onglet.quizz.quizzPersonnage.quizzChoix');
+        })->name('choix');
+
+        Route::get('/quizzFacile/quizzFacilePersonnage', function () {
+            return view('onglet.quizz.quizzPersonnage.quizzFacile.quizzFacilePersonnage');
+        })->name('facile');
+
+        Route::get('/quizzMoyen/quizzMoyenPersonnage', function () {
+            return view('onglet.quizz.quizzPersonnage.quizzMoyen.quizzMoyenPersonnage');
+        })->name('moyen');
+
+        Route::get('/quizzDifficile/quizzDifficilePersonnage', function () {
+            return view('onglet.quizz.quizzPersonnage.quizzDifficile.quizzDifficilePersonnage');
+        })->name('difficile');
+    });
 });
-Route::get('/onglet/quizz/quizzPersonnage/quizzDifficile/quizzDifficilePersonnage', function () {
-    return view('onglet.quizz.quizzPersonnage.quizzDifficile.quizzDifficilePersonnage');
-});
 
-
-
-use App\Http\Controllers\SearchController;
-
+/*
+|--------------------------------------------------------------------------
+| Routes Recherche et Fiches Héros
+|--------------------------------------------------------------------------
+*/
 // Autocomplétion AJAX
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
@@ -122,6 +145,3 @@ Route::get('/heros/{slug}', [SearchController::class, 'show'])->name('fiche.show
 
 // Résultats filtrés (espèce / organisation)
 Route::get('/fiches/resultats', [SearchController::class, 'resultats'])->name('fiches.resultats');
-
-
-

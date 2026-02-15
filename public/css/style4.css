@@ -10,17 +10,6 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Fond Marvel*/
-.bg-image {
-    background-image: url("../img/arrierePlan2.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100%;
-    min-height: 100vh;
-    overflow: auto;
-}
-
 /* Header avec dégradé */
 header {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);

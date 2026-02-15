@@ -1,0 +1,70 @@
+/* Container du héro (Groot) */
+.hero-image-container {
+    position: relative;
+    padding: 2rem;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.hero-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+/* Carte de description */
+.description-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.description-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+}
+
+.description-title {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.description-text {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .description-card {
+        padding: 1.5rem;
+    }
+
+    .description-title {
+        font-size: 1.5rem;
+    }
+
+    .description-text {
+        font-size: 1rem;
+    }
+
+    .hero-image-container {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+}

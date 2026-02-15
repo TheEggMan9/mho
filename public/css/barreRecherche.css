@@ -1,0 +1,52 @@
+/* Container du formulaire */
+#searchForm {
+    position: relative;
+    z-index: 10000;
+}
+
+/* Container de la liste d'autocomplétion */
+.list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    margin-top: 0.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+/* Items de la liste */
+.list-group-item {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:first-child {
+    border-radius: 15px 15px 0 0;
+}
+
+.list-group-item:last-child {
+    border-radius: 0 0 15px 15px;
+    border-bottom: none;
+}
+
+.list-group-item:hover {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding-left: 2rem;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .search-form .form-control {
+        font-size: 1rem;
+        padding: 0.65rem 1.25rem;
+    }
+}

@@ -73,43 +73,79 @@
         <p>Accédez à votre espace personnel</p>
       </div>
 
+      <!-- 🚨 ALERTE D'ERREUR GLOBALE -->
+      @if($errors->has('login_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-triangle-fill"></i> 
+          <strong>{{ $errors->first('login_error') }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
       <form action="{{ route('loginUtilisateur') }}" method="POST" class="needs-validation" novalidate>
         @csrf 
         
         <div class="mb-3">
-  <label for="email" class="form-label">
-    <i class="bi bi-envelope-fill"></i> Email
-  </label>
-  <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror @error('login_error') is-invalid @enderror" placeholder="Votre adresse email" value="{{ old('email') }}" autocomplete="off" required>
-  <div class="invalid-feedback">
-    @error('email') {{ $message }} @else Veuillez saisir votre email. @enderror
-  </div>
-</div>
-
-
+          <label for="email" class="form-label">
+            <i class="bi bi-envelope-fill"></i> Email
+          </label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control @error('email') is-invalid @enderror" 
+            placeholder="Votre adresse email" 
+            value="{{ old('email') }}" 
+            autocomplete="email"
+            required
+          >
+          @error('email')
+            <div class="invalid-feedback d-block">
+              {{ $message }}
+            </div>
+          @enderror
+        </div>
 
         <div class="mb-3">
           <label for="password" class="form-label">
             <i class="bi bi-lock-fill"></i> Mot de passe
           </label>
-          <div class="input-group has-validation">
-            <input type="password" name="mdp" class="form-control @error('mdp') is-invalid @enderror @error('login_error') is-invalid @enderror" id="password" placeholder="Votre mot de passe" required>
+          <div class="input-group">
+            <input 
+              type="password" 
+              name="mdp" 
+              class="form-control @error('mdp') is-invalid @enderror" 
+              id="password" 
+              placeholder="Votre mot de passe" 
+              autocomplete="current-password"
+              required
+            >
             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
               <i class="bi bi-eye" id="eyeIcon"></i>
             </button>
-            <div class="invalid-feedback">
-              @error('mdp') {{ $message }} @else @error('login_error') {{ $message }} @else Veuillez saisir votre mot de passe. @enderror @enderror
-            </div>
+            @error('mdp')
+              <div class="invalid-feedback d-block">
+                {{ $message }}
+              </div>
+            @enderror
           </div>
+        </div>
+
+        <!-- Checkbox Se souvenir de moi -->
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="remember" name="remember" value="1">
+          <label class="form-check-label" for="remember">
+            Se souvenir de moi
+          </label>
         </div>
 
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary btn-lg">
             <i class="bi bi-box-arrow-in-right"></i> Se connecter
           </button>
-          <button type="reset" class="btn btn-outline-secondary">
+          <a href="{{ url('/') }}" class="btn btn-outline-secondary">
             <i class="bi bi-x-circle"></i> Annuler
-          </button>
+          </a>
         </div>
 
         <div class="text-center mt-3">
@@ -138,18 +174,6 @@ togglePassword.addEventListener('click', function () {
     passwordField.type = 'password';
     eyeIcon.classList.remove('bi-eye-slash');
     eyeIcon.classList.add('bi-eye');
-  }
-});
-
-// Validation simple côté client pour email et mot de passe
-document.querySelector('form').addEventListener('submit', function(event) {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  
-  if (!email || !password) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.classList.add('was-validated');
   }
 });
 </script>

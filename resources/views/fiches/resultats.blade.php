@@ -160,7 +160,7 @@
                                     <h5 class="card-title">{{ $fiche->nomFiche }}</h5>
                                     
                                     @if($fiche->espece)
-                                        <p><strong>Espèce :</strong> <span class="badge bg-info">{{ $fiche->espece->nomEspece }}</span></p>
+                                        <p><strong>Espèce :</strong> <span class="badge bg-primary">{{ $fiche->espece->nomEspece }}</span></p>
                                     @endif
                                     
                                     @if($fiche->organisation)

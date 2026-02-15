@@ -74,53 +74,144 @@
         <p>Créez votre compte pour accéder à l'application</p>
       </div>
 
-      {{-- erreurs Laravel --}}
-      @if ($errors->any())
-        <div class="alert alert-danger">
-          <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
+  <div id="js-error-alert" class="alert alert-danger alert-dismissible fade" role="alert" style="display: none;">
+  <i class="bi bi-exclamation-triangle-fill"></i>
+  <strong>Erreur de validation :</strong>
+  <ul id="js-error-list" class="mb-0 mt-2"></ul>
+  <button type="button" class="btn-close" onclick="document.getElementById('js-error-alert').style.display='none'"></button>
+</div>
+
+      {{-- Affichage des erreurs --}}
+@if ($errors->any())
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <strong>Erreur :</strong>
+    <ul class="mb-0 mt-2">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+@endif
 
       <form action="{{ route('register') }}" method="POST" class="needs-validation" novalidate>
         @csrf
 
+        <!-- Nom -->
         <div class="mb-3">
-          <label class="form-label">Nom</label>
-          <input type="text" name="nom" class="form-control" required>
-          <div class="invalid-feedback">Nom requis</div>
+          <label for="nom" class="form-label">
+            <i class="bi bi-person-fill"></i> Nom
+          </label>
+          <input 
+            type="text" 
+            name="nom" 
+            id="nom" 
+            class="form-control @error('nom') is-invalid @enderror" 
+            value="{{ old('nom') }}"
+            placeholder="Votre nom"
+            required
+          >
+          @error('nom')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+          @else
+            <div class="invalid-feedback">Nom requis</div>
+          @enderror
         </div>
 
+        <!-- Prénom -->
         <div class="mb-3">
-          <label class="form-label">Prénom</label>
-          <input type="text" name="prenom" class="form-control" required>
-          <div class="invalid-feedback">Prénom requis</div>
+          <label for="prenom" class="form-label">
+            <i class="bi bi-person-fill"></i> Prénom
+          </label>
+          <input 
+            type="text" 
+            name="prenom" 
+            id="prenom" 
+            class="form-control @error('prenom') is-invalid @enderror" 
+            value="{{ old('prenom') }}"
+            placeholder="Votre prénom"
+            required
+          >
+          @error('prenom')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+          @else
+            <div class="invalid-feedback">Prénom requis</div>
+          @enderror
         </div>
 
+        <!-- Email -->
         <div class="mb-3">
-          <label class="form-label"><i class="bi bi-envelope-fill"></i> Email</label>
-          <input type="email" name="email" class="form-control" required>
-          <div div class="invalid-feedback">Email requis</div>
+          <label for="email" class="form-label">
+            <i class="bi bi-envelope-fill"></i> Email
+          </label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control @error('email') is-invalid @enderror" 
+            value="{{ old('email') }}"
+            placeholder="votre@email.com"
+            autocomplete="email"
+            required
+          >
+          @error('email')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+          @else
+            <div class="invalid-feedback">Email requis</div>
+          @enderror
         </div>
 
-
+        <!-- Mot de passe -->
         <div class="mb-3">
-          <label class="form-label"><i class="bi bi-lock-fill"></i> Mot de passe</label>
+          <label for="password" class="form-label">
+            <i class="bi bi-lock-fill"></i> Mot de passe
+          </label>
           <div class="input-group">
-            <input type="password" name="mdp" id="password" class="form-control" required>
+            <input 
+              type="password" 
+              name="mdp" 
+              id="password" 
+              class="form-control @error('mdp') is-invalid @enderror" 
+              autocomplete="new-password"
+              required
+            >
             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-              <i class="bi bi-eye"></i>
+              <i class="bi bi-eye" id="eyeIcon"></i>
             </button>
           </div>
           <small class="text-muted d-block mt-1">
-            8 caractères minimum, avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial
+            8 caractères minimum, avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial (@$!%*?&)
           </small>
-          <div class="invalid-feedback">Mot de passe invalide</div>
+          @error('mdp')
+            <div class="invalid-feedback d-block">{{ $message }}</div>
+          @else
+            <div class="invalid-feedback">Mot de passe invalide</div>
+          @enderror
         </div>
 
+        <!-- Confirmation mot de passe -->
+        <div class="mb-3">
+          <label for="password_confirmation" class="form-label">
+            <i class="bi bi-lock-fill"></i> Confirmer le mot de passe
+          </label>
+          <div class="input-group">
+            <input 
+              type="password" 
+              name="mdp_confirmation" 
+              id="password_confirmation" 
+              class="form-control" 
+              autocomplete="new-password"
+              required
+            >
+            <button class="btn btn-outline-secondary" type="button" id="togglePasswordConfirm">
+              <i class="bi bi-eye" id="eyeIconConfirm"></i>
+            </button>
+          </div>
+          <div class="invalid-feedback">Les mots de passe doivent correspondre</div>
+        </div>
+
+        <!-- Bouton submit -->
         <button class="btn btn-primary w-100 mb-3" type="submit">
           <i class="bi bi-person-plus-fill me-2"></i>Créer mon compte
         </button>
@@ -140,7 +231,7 @@
 // Toggle password visibility
 document.getElementById('togglePassword').addEventListener('click', function() {
   const password = document.getElementById('password');
-  const icon = this.querySelector('i');
+  const icon = document.getElementById('eyeIcon');
   
   if (password.type === 'password') {
     password.type = 'text';
@@ -153,30 +244,160 @@ document.getElementById('togglePassword').addEventListener('click', function() {
   }
 });
 
+// Toggle password confirmation visibility
+document.getElementById('togglePasswordConfirm').addEventListener('click', function() {
+  const password = document.getElementById('password_confirmation');
+  const icon = document.getElementById('eyeIconConfirm');
+  
+  if (password.type === 'password') {
+    password.type = 'text';
+    icon.classList.remove('bi-eye');
+    icon.classList.add('bi-eye-slash');
+  } else {
+    password.type = 'password';
+    icon.classList.remove('bi-eye-slash');
+    icon.classList.add('bi-eye');
+  }
+});
+
+// Fonction pour afficher les erreurs avec Bootstrap
+function showErrors(errors) {
+  const alertDiv = document.getElementById('js-error-alert');
+  const errorList = document.getElementById('js-error-list');
+  
+  // Vider la liste précédente
+  errorList.innerHTML = '';
+  
+  // Ajouter chaque erreur
+  errors.forEach(error => {
+    const li = document.createElement('li');
+    li.textContent = error;
+    errorList.appendChild(li);
+  });
+  
+  // Afficher l'alerte avec animation
+  alertDiv.style.display = 'block';
+  alertDiv.classList.add('show');
+  
+  // Scroll vers l'alerte
+  alertDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 // Form validation
-(() => {
-  'use strict'
-  const forms = document.querySelectorAll('.needs-validation')
+const form = document.querySelector('.needs-validation');
 
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      const password = document.getElementById('password').value
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/
+form.addEventListener('submit', function(event) {
+  const password = document.getElementById('password').value;
+  const passwordConfirm = document.getElementById('password_confirmation').value;
+  const nom = document.getElementById('nom').value.trim();
+  const prenom = document.getElementById('prenom').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  
+  let errorMessages = [];
+  let hasError = false;
 
-      if (!regex.test(password)) {
-        event.preventDefault()
-        document.getElementById('password').classList.add('is-invalid')
-      }
+  // Vérifier les champs vides
+  if (nom.length === 0) {
+    errorMessages.push('Le nom est obligatoire.');
+    document.getElementById('nom').classList.add('is-invalid');
+    hasError = true;
+  } else {
+    document.getElementById('nom').classList.remove('is-invalid');
+  }
 
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+  if (prenom.length === 0) {
+    errorMessages.push('Le prénom est obligatoire.');
+    document.getElementById('prenom').classList.add('is-invalid');
+    hasError = true;
+  } else {
+    document.getElementById('prenom').classList.remove('is-invalid');
+  }
 
-      form.classList.add('was-validated')
-    })
-  })
-})()
+  if (email.length === 0) {
+    errorMessages.push('L\'email est obligatoire.');
+    document.getElementById('email').classList.add('is-invalid');
+    hasError = true;
+  } else {
+    document.getElementById('email').classList.remove('is-invalid');
+  }
+
+  // Vérifier le format du mot de passe
+  if (!regex.test(password)) {
+    document.getElementById('password').classList.add('is-invalid');
+    errorMessages.push('Le mot de passe doit contenir au moins 8 caractères avec une majuscule, une minuscule, un chiffre et un caractère spécial (@$!%*?&).');
+    hasError = true;
+  } else {
+    document.getElementById('password').classList.remove('is-invalid');
+    document.getElementById('password').classList.add('is-valid');
+  }
+
+  // Vérifier que les mots de passe correspondent
+  if (password !== passwordConfirm) {
+    document.getElementById('password_confirmation').classList.add('is-invalid');
+    errorMessages.push('Les mots de passe ne correspondent pas.');
+    hasError = true;
+  } else if (passwordConfirm.length > 0) {
+    document.getElementById('password_confirmation').classList.remove('is-invalid');
+    document.getElementById('password_confirmation').classList.add('is-valid');
+  }
+
+  // Si des erreurs, empêcher la soumission et afficher
+  if (hasError) {
+    event.preventDefault();
+    event.stopPropagation();
+    showErrors(errorMessages);
+  }
+
+  form.classList.add('was-validated');
+});
+
+// Validation temps réel du mot de passe
+document.getElementById('password').addEventListener('input', function() {
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+  
+  if (regex.test(this.value)) {
+    this.classList.remove('is-invalid');
+    this.classList.add('is-valid');
+  } else {
+    this.classList.remove('is-valid');
+    if (this.value.length > 0) {
+      this.classList.add('is-invalid');
+    }
+  }
+});
+
+// Vérification de la correspondance des mots de passe en temps réel
+document.getElementById('password_confirmation').addEventListener('input', function() {
+  const password = document.getElementById('password').value;
+  
+  if (this.value === password && this.value.length > 0 && password.length > 0) {
+    this.classList.remove('is-invalid');
+    this.classList.add('is-valid');
+  } else if (this.value.length > 0) {
+    this.classList.remove('is-valid');
+    this.classList.add('is-invalid');
+  }
+});
+
+// Masquer l'alerte quand l'utilisateur commence à corriger
+['nom', 'prenom', 'email', 'password', 'password_confirmation'].forEach(id => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.addEventListener('input', function() {
+      // Masquer l'alerte après 1 seconde de saisie
+      setTimeout(() => {
+        const alertDiv = document.getElementById('js-error-alert');
+        if (alertDiv.classList.contains('show')) {
+          alertDiv.classList.remove('show');
+          setTimeout(() => {
+            alertDiv.style.display = 'none';
+          }, 150);
+        }
+      }, 1000);
+    });
+  }
+});
 </script>
 </body>
 </html>

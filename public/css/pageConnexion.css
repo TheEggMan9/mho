@@ -1,0 +1,170 @@
+/* ==================== STYLES PAGE TYPE DE CONNEXION ==================== */
+
+/* Container pour le choix de connexion */
+.login-type-container {
+    width: 100%;
+    max-width: 700px;
+}
+
+.login-type-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.login-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+}
+
+.login-type-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.login-type-header h2 {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-type-header p {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+/* Grid des boutons de choix */
+.login-type-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Boutons de type de connexion */
+.login-type-btn {
+    background: white;
+    border: 3px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.login-type-btn:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    color: #2c3e50;
+}
+
+/* Bouton Utilisateur */
+.user-btn {
+    border-color: #3498db;
+}
+
+.user-btn:hover {
+    border-color: #2980b9;
+    background: linear-gradient(
+        135deg,
+        rgba(52, 152, 219, 0.1),
+        rgba(41, 128, 185, 0.1)
+    );
+}
+
+.user-btn .login-type-icon {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+/* Bouton Modérateur */
+.moderator-btn {
+    border-color: #e74c3c;
+}
+
+.moderator-btn:hover {
+    border-color: #c0392b;
+    background: linear-gradient(
+        135deg,
+        rgba(231, 76, 60, 0.1),
+        rgba(192, 57, 43, 0.1)
+    );
+}
+
+.moderator-btn .login-type-icon {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+/* Icônes des boutons */
+.login-type-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.login-type-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.login-type-btn:hover .login-type-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+/* Texte des boutons */
+.login-type-btn h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.login-type-btn p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Responsive pour page de connexion */
+@media (max-width: 768px) {
+    .login-type-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .login-type-card {
+        padding: 2rem;
+    }
+
+    .login-type-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-type-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .login-type-icon i {
+        font-size: 2rem;
+    }
+
+    .login-type-btn h3 {
+        font-size: 1.25rem;
+    }
+}

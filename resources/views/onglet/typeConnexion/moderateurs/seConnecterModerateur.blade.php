@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Se connecter - Marvel's Heroes Origins</title>
+  <title>Connexion Modérateur - Marvel's Heroes Origins</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link href="{{ asset('css/style3.css') }}" rel="stylesheet" type="text/css" />
@@ -13,7 +13,7 @@
 <div class="bg-image">
 
 <header class="text-white text-center py-4">
-  <h1><i class="bi bi-box-arrow-in-right"></i> Se connecter</h1>
+  <h1><i class="bi bi-shield-lock-fill"></i> Connexion Modérateur</h1>
 </header>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -69,51 +69,89 @@
   <div class="form-container">
     <div class="form-card">
       <div class="form-header">
-        <h2><i class="bi bi-person-fill"></i> Connexion Modérateur</h2>
+        <h2><i class="bi bi-shield-lock-fill"></i> Connexion Modérateur</h2>
         <p>Accédez à votre espace modérateur</p>
       </div>
 
+      <!-- 🚨 ALERTE D'ERREUR GLOBALE -->
+      @if($errors->has('login_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-triangle-fill"></i> 
+          <strong>{{ $errors->first('login_error') }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
       <form action="{{ route('loginModerateur') }}" method="POST" class="needs-validation" novalidate>
-          @csrf 
+        @csrf 
         
         <div class="mb-3">
-  <label for="email" class="form-label">
-    <i class="bi bi-envelope-fill"></i> Email
-  </label>
-  <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror @error('login_error') is-invalid @enderror" placeholder="Votre adresse email" value="{{ old('email') }}" autocomplete="off" required>
-  <div class="invalid-feedback">
-    @error('email') {{ $message }} @else Veuillez saisir votre email. @enderror
-  </div>
-</div>
-
+          <label for="email" class="form-label">
+            <i class="bi bi-envelope-fill"></i> Email
+          </label>
+          <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            class="form-control @error('email') is-invalid @enderror" 
+            placeholder="Votre adresse email" 
+            value="{{ old('email') }}" 
+            autocomplete="email"
+            required
+          >
+          @error('email')
+            <div class="invalid-feedback d-block">
+              {{ $message }}
+            </div>
+          @enderror
+        </div>
 
         <div class="mb-3">
           <label for="password" class="form-label">
             <i class="bi bi-lock-fill"></i> Mot de passe
           </label>
-          <div class="input-group has-validation">
-            <input type="password" name="mdp" class="form-control @error('mdp') is-invalid @enderror @error('login_error') is-invalid @enderror" id="password" placeholder="Votre mot de passe" required>
+          <div class="input-group">
+            <input 
+              type="password" 
+              name="mdp" 
+              class="form-control @error('mdp') is-invalid @enderror" 
+              id="password" 
+              placeholder="Votre mot de passe" 
+              autocomplete="current-password"
+              required
+            >
             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
               <i class="bi bi-eye" id="eyeIcon"></i>
             </button>
-            <div class="invalid-feedback">
-              @error('mdp') {{ $message }} @else @error('login_error') {{ $message }} @else Veuillez saisir votre mot de passe. @enderror @enderror
-            </div>
+            @error('mdp')
+              <div class="invalid-feedback d-block">
+                {{ $message }}
+              </div>
+            @enderror
           </div>
         </div>
 
+        <!-- Checkbox Se souvenir de moi -->
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="remember" name="remember" value="1">
+          <label class="form-check-label" for="remember">
+            Se souvenir de moi
+          </label>
+        </div>
 
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary btn-lg">
             <i class="bi bi-box-arrow-in-right"></i> Se connecter
           </button>
-          <button type="reset" class="btn btn-outline-secondary">
+          <a href="{{ url('/') }}" class="btn btn-outline-secondary">
             <i class="bi bi-x-circle"></i> Annuler
-          </button>
+          </a>
         </div>
 
         <div class="text-center mt-3">
-          <p class="text-muted">Pas encore inscrit ? <a href="{{ url('/onglet/creerCompte') }}" class="text-primary fw-bold">Créer un compte</a></p>
+          <p class="text-muted">
+            <i class="bi bi-info-circle"></i> Espace réservé aux modérateurs
+          </p>
         </div>
       </form>
     </div>
@@ -124,20 +162,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// Validation simple côté client
-// Validation simple côté client
-document.querySelector('form').addEventListener('submit', function(event) {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
+// Toggle password visibility
+const togglePassword = document.getElementById('togglePassword');
+togglePassword.addEventListener('click', function () {
+  const passwordField = document.getElementById('password');
+  const eyeIcon = document.getElementById('eyeIcon');
   
-  if (!email || !password) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.classList.add('was-validated');
-    return false;
+  if (passwordField.type === 'password') {
+    passwordField.type = 'text';
+    eyeIcon.classList.remove('bi-eye');
+    eyeIcon.classList.add('bi-eye-slash');
+  } else {
+    passwordField.type = 'password';
+    eyeIcon.classList.remove('bi-eye-slash');
+    eyeIcon.classList.add('bi-eye');
   }
 });
-
 </script>
 <script src="{{ asset('js/script2.js') }}"></script>
 </body>

@@ -1,0 +1,233 @@
+/* ==================== STYLES PAGE MON COMPTE ==================== */
+
+/* Container principal du compte */
+.account-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Carte d'informations personnelles */
+.account-info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    margin-bottom: 2rem;
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header du compte */
+.account-header {
+    text-align: center;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid #e74c3c;
+    margin-bottom: 2rem;
+}
+
+.account-avatar {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+}
+
+.account-avatar i {
+    font-size: 5rem;
+    color: white;
+}
+
+.account-header h2 {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.account-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Détails du compte */
+.account-details h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.account-details h3 i {
+    color: #e74c3c;
+}
+
+.info-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.info-item {
+    background: #f8f9fa;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid #e74c3c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.info-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+    background: white;
+}
+
+.info-label {
+    color: #7f8c8d;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-label i {
+    color: #e74c3c;
+}
+
+.info-value {
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Carte de danger (suppression) */
+.account-danger-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border: 3px solid #dc3545;
+}
+
+.danger-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.danger-header i {
+    font-size: 2rem;
+}
+
+.danger-header h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.danger-description {
+    color: #7f8c8d;
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 8px;
+}
+
+/* Carte non connecté */
+.account-not-connected {
+    background: white;
+    border-radius: 20px;
+    padding: 4rem 2.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    animation: slideUp 0.5s ease;
+}
+
+.not-connected-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.not-connected-icon i {
+    font-size: 5rem;
+    color: white;
+}
+
+.account-not-connected h2 {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.account-not-connected p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-info-card,
+    .account-danger-card,
+    .account-not-connected {
+        padding: 2rem 1.5rem;
+    }
+
+    .account-avatar,
+    .not-connected-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .account-avatar i,
+    .not-connected-icon i {
+        font-size: 4rem;
+    }
+
+    .account-header h2,
+    .account-not-connected h2 {
+        font-size: 1.5rem;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .danger-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}

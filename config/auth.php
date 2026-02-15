@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'moderateur' => [
+            'driver' => 'session',
+            'provider' => 'moderateurs',
+        ],
     ],
 
     /*
@@ -65,11 +70,11 @@ return [
             'model' => App\Models\Compte::class,
         ],
 
+        'moderateurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\CompteModerateur::class,
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -95,6 +100,13 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'moderateurs' => [
+            'provider' => 'moderateurs',
+            'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
