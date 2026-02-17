@@ -6,6 +6,7 @@ use App\Http\Controllers\connexionModerateurController;
 use App\Http\Controllers\CreerCompteController;
 use App\Http\Controllers\supprimerCompteController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +140,8 @@ Route::prefix('onglet/quizz')->name('quizz.')->group(function () {
 */
 // Autocomplétion AJAX
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+Route::post('/like/{ficheId}', [LikeController::class, 'toggle'])->middleware('auth')->name('like.toggle');
 
 // Fiche détaillée
 Route::get('/heros/{slug}', [SearchController::class, 'show'])->name('fiche.show');

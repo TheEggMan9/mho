@@ -53,4 +53,10 @@ class Compte extends Authenticatable
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    // Relation avec les likes
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

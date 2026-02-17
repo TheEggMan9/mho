@@ -261,3 +261,52 @@
     background: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
+
+/* Bouton Like */
+.btn-like {
+    background: transparent;
+    border: 2px solid #e74c3c;
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+    color: #e74c3c;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.btn-like:hover {
+    background: #e74c3c;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-like.liked {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-like.liked i {
+    animation: heartBeat 0.3s ease;
+}
+
+.like-count {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* Animation du coeur */
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

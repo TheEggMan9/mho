@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="{{ asset('css/style3.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/fiches-animation.css') }}" rel="stylesheet" type="text/css" />
+    {{-- CSRF Token pour JS --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
-
 <div class="bg-image">
 
 <header class="text-white text-center py-4">
@@ -69,10 +70,7 @@
 
 <!-- Barre de recherche -->
 <div class="container text-center py-4">
-    <form id="searchForm" 
-          data-baseurl="{{ url('heros') }}"
-          data-searchurl="{{ url('/search') }}"
-          data-resultatsurl="{{ url('/fiches/resultats') }}">
+    <form id="searchForm" data-baseurl="{{ url('heros') }}" data-searchurl="{{ url('/search') }}" data-resultatsurl="{{ url('/fiches/resultats') }}">
         <div class="input-group mb-2">
             <input type="text" class="form-control" id="input" placeholder="Rechercher un personnage...">
             <button class="btn btn-primary" type="submit">Rechercher</button>
@@ -148,12 +146,12 @@
                                     <img src="{{ asset('img/heros/' . $fiche->image) }}" 
                                          class="card-img-top" 
                                          alt="{{ $fiche->nomFiche }}"
-                                         style="height: 250px; object-fit: cover;">
+                                         style="height: 450px; object-fit: cover;">
                                 @else
                                     <img src="{{ asset('img/default-hero.png') }}" 
                                          class="card-img-top" 
                                          alt="Image par défaut"
-                                         style="height: 250px; object-fit: cover;">
+                                         style="height: 400px; object-fit: cover;">
                                 @endif
                                 
                                 <div class="card-body">
@@ -170,6 +168,26 @@
                                     <a href="{{ url('heros/'.$fiche->slug) }}" class="btn btn-primary">
                                         <i class="bi bi-eye"></i> Voir la fiche
                                     </a>
+                                    <div class="like-container text-center mt-3">
+                        @auth
+                            <button
+                                class="btn-like {{ $fiche->isLikedBy(Auth::id()) ? 'liked' : '' }}"
+                                data-fiche-id="{{ $fiche->id }}"
+                                onclick="toggleLike({{ $fiche->id }}, '{{ route('like.toggle', $fiche->id) }}')"
+                            >
+                                <i class="bi {{ $fiche->isLikedBy(Auth::id()) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                <span class="like-count">{{ $fiche->likesCount() }}</span>
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}" class="btn-like">
+                                <i class="bi bi-heart"></i>
+                                <span class="like-count">{{ $fiche->likesCount() }}</span>
+                            </a>
+                            <small class="text-muted d-block mt-1">
+                                Connectez-vous pour liker
+                            </small>
+                        @endauth
+                    </div>
                                 </div>
                             </div>
                         </div>
@@ -180,12 +198,12 @@
                     <i class="bi bi-exclamation-triangle-fill"></i> Aucun héros ne correspond aux filtres.
                 </div>
             @endif
+        </div>
+    </div>
+</div>
 
-            <div class="mt-4">
-                <a href="{{ url('/') }}" class="btn btn-secondary">
-                    <i class="bi bi-arrow-left"></i> Retour à l'accueil
-                </a>
-            </div>
+</div>
+            
         </div>
     </div>
 </div>
@@ -194,5 +212,49 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/barreRecherche.js') }}"></script>
+
+<!-- JS pour le like AJAX -->
+<script>
+async function toggleLike(ficheId, url) {
+    const button = document.querySelector(`[data-fiche-id="${ficheId}"]`);
+    const icon = button.querySelector("i");
+    const count = button.querySelector(".like-count");
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                Accept: "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) window.location.href = "/onglet/seConnecter";
+            else throw new Error(`Erreur HTTP : ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.liked) {
+            button.classList.add("liked");
+            icon.classList.remove("bi-heart");
+            icon.classList.add("bi-heart-fill");
+        } else {
+            button.classList.remove("liked");
+            icon.classList.remove("bi-heart-fill");
+            icon.classList.add("bi-heart");
+        }
+
+        count.textContent = data.count;
+
+    } catch (error) {
+        console.error("Erreur complète:", error);
+        console.error("Message:", error.message);
+    }
+}
+</script>
+
 </body>
 </html>
