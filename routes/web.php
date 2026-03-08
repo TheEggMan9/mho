@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Suppression de compte
     Route::delete('/supprimer-compte', [supprimerCompteController::class, 'destroy'])
-        ->name('account.destroy');
+        ->name('destroy');
 });
 
 /*

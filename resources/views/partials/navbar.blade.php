@@ -20,7 +20,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url('/onglet/quizzMarvel') }}">
+          <a class="nav-link" href="{{ url('/onglet/quizz/quizzMarvel') }}">
             <i class="bi bi-patch-question-fill"></i> Quizz
           </a>
         </li>

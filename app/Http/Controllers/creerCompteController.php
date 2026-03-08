@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use App\Models\Compte;
 use App\Mail\WelcomeEmail;
+use Illuminate\Validation\Rules\Password;
+
 
 class CreerCompteController extends Controller
 {
@@ -31,38 +33,40 @@ class CreerCompteController extends Controller
         // Protection anti-spam
         $this->ensureIsNotRateLimited($request);
 
-        // Validation avec messages personnalisés
-        $request->validate([
-            'nom' => ['required', 'string', 'alpha', 'max:255', 'min:2'],
-            'prenom' => ['required', 'string', 'alpha', 'max:255', 'min:2'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:comptes,email'],
-            'mdp' => [
-                'required',
-                'string',
-                'min:8',
-                'max:255',
-                'confirmed',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/'
-            ],
-        ], [
-            // Messages personnalisés
-            'nom.required' => 'Le nom est obligatoire.',
-            'nom.alpha' => 'Le nom ne doit contenir que des lettres.',
-            'nom.min' => 'Le nom doit contenir au moins 2 caractères.',
-            
-            'prenom.required' => 'Le prénom est obligatoire.',
-            'prenom.alpha' => 'Le prénom ne doit contenir que des lettres.',
-            'prenom.min' => 'Le prénom doit contenir au moins 2 caractères.',
-            
-            'email.required' => 'L\'adresse email est obligatoire.',
-            'email.email' => 'L\'adresse email n\'est pas valide.',
-            'email.unique' => 'Cette adresse email est déjà utilisée.',
-            
-            'mdp.required' => 'Le mot de passe est obligatoire.',
-            'mdp.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
-            'mdp.confirmed' => 'Les mots de passe ne correspondent pas.',
-            'mdp.regex' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial (@$!%*?&).',
-        ]);
+
+$request->validate([
+    'nom' => ['required', 'string', 'regex:/^[\pL\s\-\']+$/u', 'max:255', 'min:2'],
+    'prenom' => ['required', 'string', 'regex:/^[\pL\s\-\']+$/u', 'max:255', 'min:2'],
+    'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:comptes,email'],
+    'mdp' => [
+        'required',
+        'string',
+        'confirmed',
+        Password::min(8)
+            ->max(255)
+            ->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols()
+            //->uncompromised(), // vérifie si le mdp a été piraté
+    ],
+], [
+    'nom.required' => 'Le nom est obligatoire.',
+    'nom.regex'    => 'Le nom ne doit contenir que des lettres, espaces, tirets ou apostrophes.',
+    'nom.min'      => 'Le nom doit contenir au moins 2 caractères.',
+
+    'prenom.required' => 'Le prénom est obligatoire.',
+    'prenom.regex'    => 'Le prénom ne doit contenir que des lettres, espaces, tirets ou apostrophes.',
+    'prenom.min'      => 'Le prénom doit contenir au moins 2 caractères.',
+
+    'email.required' => 'L\'adresse email est obligatoire.',
+    'email.email'    => 'L\'adresse email n\'est pas valide.',
+    'email.unique'   => 'Cette adresse email est déjà utilisée.',
+
+    'mdp.required'   => 'Le mot de passe est obligatoire.',
+    'mdp.confirmed'  => 'Les mots de passe ne correspondent pas.',
+    'mdp.*'          => 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.',
+]);
 
         // Créer l'utilisateur
         $user = Compte::create([
@@ -72,7 +76,7 @@ class CreerCompteController extends Controller
             'mdp' => Hash::make($request->mdp),
         ]);
 
-        // Déclencher l'événement Registered (pour Breeze)
+        // Déclencher l'événement Registered
         event(new Registered($user));
 
         // Connexion automatique après inscription
@@ -81,7 +85,7 @@ class CreerCompteController extends Controller
         // Réinitialiser le rate limiter
         RateLimiter::clear($this->throttleKey($request));
 
-        // Envoyer l'email de bienvenue (en async si possible)
+        // Envoyer l'email de bienvenue
         try {
             Mail::to($user->email)->send(new WelcomeEmail($user));
         } catch (\Exception $e) {
