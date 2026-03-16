@@ -59,4 +59,9 @@ class Compte extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
+
+    public function commentaires()
+    {
+    return $this->hasMany(Commentaire::class);
+    }
 }

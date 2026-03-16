@@ -5,6 +5,8 @@
 @section('no-searchbar')
 @endsection
 
+@section('background-class', 'bg-image')
+
 @section('content')
 
 @if (!Auth::check())

@@ -7,6 +7,7 @@ use App\Http\Controllers\CreerCompteController;
 use App\Http\Controllers\supprimerCompteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentaireController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,32 @@ Route::prefix('onglet/quizz')->name('quizz.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Routes Commentaire
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Routes Commentaire
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    Route::post('/commentaires/{ficheId}', 
+        [CommentaireController::class, 'store'])
+        ->name('commentaire.store');
+
+    Route::delete('/commentaires/{commentaireId}', 
+        [CommentaireController::class, 'destroy'])
+        ->name('commentaire.destroy');
+
+    Route::post('/commentaires/{commentaireId}/like', 
+        [CommentaireController::class, 'toggleLike'])
+        ->name('commentaire.like');
+
+});
+/*
+|--------------------------------------------------------------------------
 | Routes Recherche et Fiches Héros
 |--------------------------------------------------------------------------
 */
@@ -148,3 +175,5 @@ Route::get('/heros/{slug}', [SearchController::class, 'show'])->name('fiche.show
 
 // Résultats filtrés (espèce / organisation)
 Route::get('/fiches/resultats', [SearchController::class, 'resultats'])->name('fiches.resultats');
+
+

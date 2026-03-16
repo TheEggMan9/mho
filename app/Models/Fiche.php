@@ -40,4 +40,9 @@ class Fiche extends Model
     {
     return $this->likes()->count();
     }
+
+    public function commentaires()
+    {
+    return $this->hasMany(Commentaire::class)->orderBy('created_at', 'desc');
+    }
 }

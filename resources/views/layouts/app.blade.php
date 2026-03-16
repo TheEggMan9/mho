@@ -49,6 +49,7 @@
 {{-- JS global --}}
 <script src="{{ asset('js/barreRecherche.js') }}"></script>
 <script src="{{ asset('js/like.js') }}"></script>
+<script src="{{ asset('js/commentaire.js') }}"></script>
 
 {{-- JS spécifique --}}
 @yield('scripts')

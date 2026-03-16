@@ -51,6 +51,8 @@
                 </div>
             </div>
 
+            @include('partials.comment', ['fiche' => $fiche])
+
         </div>
     </div>
 </div>
