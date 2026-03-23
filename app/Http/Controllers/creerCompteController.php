@@ -35,46 +35,41 @@ class CreerCompteController extends Controller
 
 
 $request->validate([
-    'nom' => ['required', 'string', 'regex:/^[\pL\s\-\']+$/u', 'max:255', 'min:2'],
-    'prenom' => ['required', 'string', 'regex:/^[\pL\s\-\']+$/u', 'max:255', 'min:2'],
-    'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:comptes,email'],
-    'mdp' => [
-        'required',
-        'string',
-        'confirmed',
-        Password::min(8)
-            ->max(255)
-            ->letters()
-            ->mixedCase()
-            ->numbers()
-            ->symbols()
-            //->uncompromised(), // vérifie si le mdp a été piraté
-    ],
-], [
-    'nom.required' => 'Le nom est obligatoire.',
-    'nom.regex'    => 'Le nom ne doit contenir que des lettres, espaces, tirets ou apostrophes.',
-    'nom.min'      => 'Le nom doit contenir au moins 2 caractères.',
+        'nom' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'email' => 'required|email|unique:comptes,email',
+        'pseudo' => 'required|string|min:3|max:20|unique:comptes,pseudo|alpha_dash', // ✅ AJOUTÉ
+        'mdp' => [
+            'required',
+            'string',
+            'min:8',
+            'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
+            'confirmed',
+        ],
+    ], [
+        'nom.required' => 'Le nom est obligatoire.',
+        'prenom.required' => 'Le prénom est obligatoire.',
+        'email.required' => 'L\'email est obligatoire.',
+        'email.email' => 'L\'email doit être valide.',
+        'email.unique' => 'Cet email est déjà utilisé.',
+        'pseudo.required' => 'Le pseudo est obligatoire.',
+        'pseudo.min' => 'Le pseudo doit contenir au moins 3 caractères.',
+        'pseudo.max' => 'Le pseudo ne peut pas dépasser 20 caractères.',
+        'pseudo.unique' => 'Ce pseudo est déjà pris.',
+        'pseudo.alpha_dash' => 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.',
+        'mdp.required' => 'Le mot de passe est obligatoire.',
+        'mdp.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+        'mdp.regex' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
+        'mdp.confirmed' => 'Les mots de passe ne correspondent pas.',
+    ]);
 
-    'prenom.required' => 'Le prénom est obligatoire.',
-    'prenom.regex'    => 'Le prénom ne doit contenir que des lettres, espaces, tirets ou apostrophes.',
-    'prenom.min'      => 'Le prénom doit contenir au moins 2 caractères.',
-
-    'email.required' => 'L\'adresse email est obligatoire.',
-    'email.email'    => 'L\'adresse email n\'est pas valide.',
-    'email.unique'   => 'Cette adresse email est déjà utilisée.',
-
-    'mdp.required'   => 'Le mot de passe est obligatoire.',
-    'mdp.confirmed'  => 'Les mots de passe ne correspondent pas.',
-    'mdp.*'          => 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.',
-]);
-
-        // Créer l'utilisateur
-        $user = Compte::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'email' => $request->email,
-            'mdp' => Hash::make($request->mdp),
-        ]);
+    $user = Compte::create([
+        'nom' => $request->nom,
+        'prenom' => $request->prenom,
+        'email' => $request->email,
+        'pseudo' => $request->pseudo,
+        'mdp' => Hash::make($request->mdp),
+    ]);
 
         // Déclencher l'événement Registered
         event(new Registered($user));

@@ -14,36 +14,36 @@ class CommentaireController extends Controller
      * Ajouter un commentaire
      */
     public function store(Request $request, $ficheId)
-    {
-        $request->validate([
-            'contenu' => 'required|string|min:3|max:500',
-        ], [
-            'contenu.required' => 'Le commentaire ne peut pas être vide.',
-            'contenu.min' => 'Le commentaire doit contenir au moins 3 caractères.',
-            'contenu.max' => 'Le commentaire ne peut pas dépasser 500 caractères.',
-        ]);
+{
+    $request->validate([
+        'contenu' => 'required|string|min:3|max:500',
+    ], [
+        'contenu.required' => 'Le commentaire ne peut pas être vide.',
+        'contenu.min' => 'Le commentaire doit contenir au moins 3 caractères.',
+        'contenu.max' => 'Le commentaire ne peut pas dépasser 500 caractères.',
+    ]);
 
-        $fiche = Fiche::findOrFail($ficheId);
+    $fiche = Fiche::findOrFail($ficheId);
 
-        $commentaire = Commentaire::create([
-            'contenu' => $request->contenu,
-            'compte_id' => Auth::id(),
-            'fiche_id' => $ficheId,
-        ]);
+    $commentaire = Commentaire::create([
+        'contenu' => $request->contenu,
+        'compte_id' => Auth::id(),
+        'fiche_id' => $ficheId,
+    ]);
 
-        return response()->json([
-            'success' => true,
-            'commentaire' => [
-                'id' => $commentaire->id,
-                'contenu' => $commentaire->contenu,
-                'auteur' => $commentaire->compte->nom . ' ' . $commentaire->compte->prenom,
-                'date' => $commentaire->created_at->diffForHumans(),
-                'isOwner' => true,
-                'likesCount' => 0,
-                'isLiked' => false,
-            ],
-        ]);
-    }
+    return response()->json([
+        'success' => true,
+        'commentaire' => [
+            'id' => $commentaire->id,
+            'contenu' => $commentaire->contenu,
+            'auteur' => $commentaire->compte->pseudo, // ✅ CHANGÉ : pseudo au lieu de nom + prenom
+            'date' => $commentaire->created_at->diffForHumans(),
+            'isOwner' => true,
+            'likesCount' => 0,
+            'isLiked' => false,
+        ],
+    ]);
+}
 
     /**
      * Supprimer un commentaire

@@ -35,6 +35,10 @@
               <span class="info-value">{{ Auth::user()->prenom }}</span>
             </div>
             <div class="info-item">
+              <span class="info-label"><i class="bi bi-person"></i> Pseudo</span>
+              <span class="info-value">{{ Auth::user()->pseudo }}</span>
+            </div>
+            <div class="info-item">
               <span class="info-label"><i class="bi bi-at"></i> Email</span>
               <span class="info-value">{{ Auth::user()->email }}</span>
             </div>

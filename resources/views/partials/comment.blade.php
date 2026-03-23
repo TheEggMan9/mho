@@ -41,7 +41,7 @@
                                     <div>
                                         <strong class="text-primary">
                                             <i class="bi bi-person-circle"></i>
-                                            {{ $commentaire->compte->nom }} {{ $commentaire->compte->prenom }}
+                                            {{ $commentaire->compte->pseudo }}
                                         </strong>
                                         <small class="text-muted ms-2">
                                             <i class="bi bi-clock"></i>

@@ -16,7 +16,8 @@ class Compte extends Authenticatable
         'nom',
         'prenom',
         'email',
-        'mdp'
+        'mdp',
+        'pseudo'
     ];
     
     protected $hidden = [

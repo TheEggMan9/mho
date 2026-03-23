@@ -53,6 +53,19 @@
           <div class="invalid-feedback">Email requis</div>
         </div>
 
+        <div class="mb-3">
+          <label for="pseudo" class="form-label">
+            <i class="bi bi-person-badge"></i> Pseudo
+          </label>
+        <input type="text" class="form-control @error('pseudo') is-invalid @enderror" id="pseudo" name="pseudo" value="{{ old('pseudo') }}" placeholder="Votre pseudo (3-20 caractères)" minlength="3" maxlength="20" pattern="[A-Za-z0-9_-]+" required>
+    @error('pseudo')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+    <small class="text-muted">
+        Lettres, chiffres, tirets et underscores uniquement
+    </small>
+</div>
+
 <!-- Mot de passe -->
 <div class="mb-3">
   <label for="password" class="form-label">
