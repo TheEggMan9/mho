@@ -31,6 +31,11 @@
           <a class="nav-link" href="{{ url('/moderateurs/commentaires') }}">Commentaires</a>
           </li>
           <li class="nav-item">
+          <a class="nav-link" href="{{ url('/onglet/sommaire') }}">
+            <i class="bi bi-list-ul"></i> Sommaire
+          </a>
+        </li>
+          <li class="nav-item">
               <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Se déconnecter</a>
             </li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

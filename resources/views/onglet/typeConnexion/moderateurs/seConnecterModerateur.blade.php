@@ -82,7 +82,7 @@
         </div>
       @endif
 
-      <form action="{{ route('loginModerateur') }}" method="POST" class="needs-validation" novalidate>
+      <form action="{{ route('moderateur.loginPost') }}" method="POST" class="needs-validation" novalidate>
         @csrf 
         
         <div class="mb-3">

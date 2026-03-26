@@ -84,9 +84,9 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('moderateurs')->name('moderateur.')->group(function () {
     Route::middleware('guest:moderateur')->group(function () {
         // Connexion modérateur
-        Route::get('/seConnecter', [connexionModerateurController::class, 'showLoginForm'])
+        Route::get('/onglet/typeConnexion/moderateurs/seConnecterModerateur', [connexionModerateurController::class, 'showLoginForm'])
             ->name('login');
-        Route::post('/seConnecter', [connexionModerateurController::class, 'login'])
+        Route::post('/onglet/typeConnexion/moderateurs/seConnecterModerateur', [connexionModerateurController::class, 'login'])
             ->name('loginPost');
     });
 

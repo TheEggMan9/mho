@@ -36,7 +36,7 @@ class CommentaireController extends Controller
         'commentaire' => [
             'id' => $commentaire->id,
             'contenu' => $commentaire->contenu,
-            'auteur' => $commentaire->compte->pseudo, // ✅ CHANGÉ : pseudo au lieu de nom + prenom
+            'auteur' => $commentaire->compte->pseudo,
             'date' => $commentaire->created_at->diffForHumans(),
             'isOwner' => true,
             'likesCount' => 0,

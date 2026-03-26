@@ -34,7 +34,7 @@
           <p>Accès standard pour les fans Marvel</p>
         </a>
 
-        <a href="{{ url('/onglet/typeConnexion/moderateurs/seConnecterModerateur') }}" 
+        <a href="{{ route('moderateur.login') }}" 
            class="login-type-btn moderator-btn">
           <div class="login-type-icon">
             <i class="bi bi-shield-fill-check"></i>
