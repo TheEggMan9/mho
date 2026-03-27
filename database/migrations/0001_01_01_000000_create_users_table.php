@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+{
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
+            $table->string('pseudo')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
+}
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

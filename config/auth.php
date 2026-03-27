@@ -67,13 +67,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Compte::class,
+            'model' => App\Models\User::class,
         ],
 
-        'moderateurs' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\CompteModerateur::class,
-        ],
+        //'moderateurs' => [
+        //    'driver' => 'eloquent',
+        //    'model' => App\Models\CompteModerateur::class,
+        //],
 
     ],
 

@@ -9,40 +9,31 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
+        'nom',
+        'prenom',
+        'pseudo',
         'email',
         'password',
+        'is_admin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    protected static function booted()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        static::creating(function ($user) {
+            // Si ce n'est pas un admin et que name est vide
+            if (!$user->is_admin && empty($user->name)) {
+                $user->name = trim("{$user->prenom} {$user->nom}");
+            }
+        });
+    }
+
+    // Pour Filament
+    public function getFilamentName(): string
+    {
+        return $this->name ?? 'Utilisateur';
     }
 }

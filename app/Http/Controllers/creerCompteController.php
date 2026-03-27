@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use App\Models\Compte;
+use App\Models\User;
 use App\Mail\WelcomeEmail;
-use Illuminate\Validation\Rules\Password;
-
 
 class CreerCompteController extends Controller
 {
@@ -26,61 +24,56 @@ class CreerCompteController extends Controller
     }
 
     /**
-     * Gérer l'inscription d'un nouvel utilisateur
+     * Gérer l'inscription
      */
     public function register(Request $request)
     {
-        // Protection anti-spam
         $this->ensureIsNotRateLimited($request);
 
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'pseudo' => 'required|string|min:3|max:20|unique:users,pseudo|alpha_dash',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
+                'confirmed',
+            ],
+        ], [
+            'nom.required' => 'Le nom est obligatoire.',
+            'prenom.required' => 'Le prénom est obligatoire.',
+            'email.required' => 'L\'email est obligatoire.',
+            'email.email' => 'L\'email doit être valide.',
+            'email.unique' => 'Cet email est déjà utilisé.',
+            'pseudo.required' => 'Le pseudo est obligatoire.',
+            'pseudo.min' => 'Le pseudo doit contenir au moins 3 caractères.',
+            'pseudo.max' => 'Le pseudo ne peut pas dépasser 20 caractères.',
+            'pseudo.unique' => 'Ce pseudo est déjà pris.',
+            'pseudo.alpha_dash' => 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.',
+            'password.required' => 'Le mot de passe est obligatoire.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.regex' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+        ]);
 
-$request->validate([
-        'nom' => 'required|string|max:255',
-        'prenom' => 'required|string|max:255',
-        'email' => 'required|email|unique:comptes,email',
-        'pseudo' => 'required|string|min:3|max:20|unique:comptes,pseudo|alpha_dash', // ✅ AJOUTÉ
-        'mdp' => [
-            'required',
-            'string',
-            'min:8',
-            'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/',
-            'confirmed',
-        ],
-    ], [
-        'nom.required' => 'Le nom est obligatoire.',
-        'prenom.required' => 'Le prénom est obligatoire.',
-        'email.required' => 'L\'email est obligatoire.',
-        'email.email' => 'L\'email doit être valide.',
-        'email.unique' => 'Cet email est déjà utilisé.',
-        'pseudo.required' => 'Le pseudo est obligatoire.',
-        'pseudo.min' => 'Le pseudo doit contenir au moins 3 caractères.',
-        'pseudo.max' => 'Le pseudo ne peut pas dépasser 20 caractères.',
-        'pseudo.unique' => 'Ce pseudo est déjà pris.',
-        'pseudo.alpha_dash' => 'Le pseudo ne peut contenir que des lettres, chiffres, tirets et underscores.',
-        'mdp.required' => 'Le mot de passe est obligatoire.',
-        'mdp.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
-        'mdp.regex' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
-        'mdp.confirmed' => 'Les mots de passe ne correspondent pas.',
-    ]);
+        $user = User::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'email' => $request->email,
+            'pseudo' => $request->pseudo,
+            'password' => Hash::make($request->password),
+            'is_admin' => 0,
+        ]);
 
-    $user = Compte::create([
-        'nom' => $request->nom,
-        'prenom' => $request->prenom,
-        'email' => $request->email,
-        'pseudo' => $request->pseudo,
-        'mdp' => Hash::make($request->mdp),
-    ]);
-
-        // Déclencher l'événement Registered
         event(new Registered($user));
 
-        // Connexion automatique après inscription
         Auth::login($user);
 
-        // Réinitialiser le rate limiter
         RateLimiter::clear($this->throttleKey($request));
 
-        // Envoyer l'email de bienvenue
         try {
             Mail::to($user->email)->send(new WelcomeEmail($user));
         } catch (\Exception $e) {
@@ -90,12 +83,12 @@ $request->validate([
             ]);
         }
 
-        return redirect('/')->with('success', 'Bienvenue ' . $user->prenom . ' ! Votre compte a été créé avec succès.');
+        return redirect('/')->with(
+            'success',
+            'Bienvenue ' . ($user->prenom ?? $user->name) . ' ! Votre compte a été créé avec succès.'
+        );
     }
 
-    /**
-     * Vérifier le rate limiting pour éviter le spam
-     */
     protected function ensureIsNotRateLimited(Request $request): void
     {
         if (! RateLimiter::tooManyAttempts($this->throttleKey($request), 3)) {
@@ -110,9 +103,6 @@ $request->validate([
         ]);
     }
 
-    /**
-     * Obtenir la clé de rate limiting
-     */
     protected function throttleKey(Request $request): string
     {
         return 'register:' . Str::lower($request->ip());

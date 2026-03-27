@@ -1,7 +1,10 @@
 <?php
 
+
+
 return [
 
+App\Providers\FilamentServiceProvider::class,
     /*
     |--------------------------------------------------------------------------
     | Application Name

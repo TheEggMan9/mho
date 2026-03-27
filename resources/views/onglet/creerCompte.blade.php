@@ -73,9 +73,9 @@
   </label>
   <div class="input-group">
     <input type="password" 
-           name="mdp" 
+           name="password" 
            id="password" 
-           class="form-control @error('mdp') is-invalid @enderror" 
+           class="form-control @error('password') is-invalid @enderror" 
            required>
     <button type="button" 
             class="btn btn-outline-secondary toggle-password-btn" 
@@ -95,7 +95,7 @@
   </label>
   <div class="input-group">
     <input type="password" 
-           name="mdp_confirmation" 
+           name="password_confirmation" 
            id="password_confirmation" 
            class="form-control" 
            required>

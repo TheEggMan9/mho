@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Fiche extends Model
 {
@@ -11,7 +12,7 @@ class Fiche extends Model
         'slug',
         'image',
         'espece_id',
-        'organisation_id'
+        'organisation_id',
     ];
 
     public function espece()
@@ -26,23 +27,23 @@ class Fiche extends Model
 
     public function likes()
     {
-    return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class);
     }
 
     // Vérifier si l'utilisateur connecté a liké
     public function isLikedBy($userId)
     {
-        return $this->likes()->where('compte_id', $userId)->exists();
+        return $this->likes()->where('user_id', $userId)->exists();
     }
 
     // Nombre de likes
     public function likesCount()
     {
-    return $this->likes()->count();
+        return $this->likes()->count();
     }
 
     public function commentaires()
     {
-    return $this->hasMany(Commentaire::class)->orderBy('created_at', 'desc');
+        return $this->hasMany(Commentaire::class)->orderBy('created_at', 'desc');
     }
 }

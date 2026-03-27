@@ -25,7 +25,7 @@ class LikeController extends Controller
         $userId = Auth::id();
 
         // Vérifier si déjà liké
-        $like = Like::where('compte_id', $userId)
+        $like = Like::where('user_id', $userId)
                     ->where('fiche_id', $ficheId)
                     ->first();
 
@@ -36,7 +36,7 @@ class LikeController extends Controller
         } else {
             // Liker
             Like::create([
-                'compte_id' => $userId,
+                'user_id' => $userId,
                 'fiche_id' => $ficheId,
             ]);
             $liked = true;

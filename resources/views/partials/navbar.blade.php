@@ -47,6 +47,15 @@
         </li>
         @endguest
 
+        @if(Auth::check() && Auth::user()->is_admin)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/admin') }}">
+            <i class="bi bi-person-circle"></i> dashboard
+          </a>
+        </li>
+
+@endif
+
         @auth
         <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}"

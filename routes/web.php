@@ -14,7 +14,10 @@ use App\Http\Controllers\CommentaireController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
+// routes/web.php
+Route::get('/admin-redirect', function () {
+    return redirect('/admin');
+})->name('admin.dashboard');
 /*
 |--------------------------------------------------------------------------
 | Routes Publiques
@@ -38,16 +41,11 @@ Route::get('/onglet/commentaire', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('guest')->group(function () {
-    // Afficher le choix de connexion
-    Route::get('/onglet/seConnecter', function () {
-        return view('onglet.seConnecter');
-    })->name('login.choice');
-
-    // Connexion utilisateur
-    Route::get('/onglet/typeConnexion/utilisateurs/seConnecter', [ConnexionController::class, 'showLoginForm'])
+    Route::get('/onglet/seConnecter', [ConnexionController::class, 'showLoginForm'])
         ->name('login');
-    Route::post('/onglet/typeConnexion/utilisateurs/seConnecter', [ConnexionController::class, 'login'])
+    Route::post('/onglet/seConnecter', [ConnexionController::class, 'login'])
         ->name('loginUtilisateur');
+
 
     // Inscription utilisateur
     Route::get('/onglet/creerCompte', [CreerCompteController::class, 'showRegistrationForm'])
@@ -175,5 +173,8 @@ Route::get('/heros/{slug}', [SearchController::class, 'show'])->name('fiche.show
 
 // Résultats filtrés (espèce / organisation)
 Route::get('/fiches/resultats', [SearchController::class, 'resultats'])->name('fiches.resultats');
+
+
+
 
 

@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class CommentaireLike extends Model
 {
-    protected $fillable = ['compte_id', 'commentaire_id'];
+    protected $fillable = ['user_id', 'commentaire_id'];
 
-    public function compte()
+    // Relation vers l'utilisateur
+    public function user()
     {
-        return $this->belongsTo(Compte::class);
+        return $this->belongsTo(User::class);
     }
 
+    // Relation vers le commentaire
     public function commentaire()
     {
         return $this->belongsTo(Commentaire::class);
