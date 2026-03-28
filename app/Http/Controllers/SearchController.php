@@ -26,8 +26,10 @@ class SearchController extends Controller
     // Fiche détaillée
     public function show($slug)
     {
-        $fiche = Fiche::where('slug', $slug)->firstOrFail();
-        return view("heros.{$slug}", compact('fiche'));
+        $fiche = Fiche::where('slug', $slug)
+                    ->with(['espece', 'organisation'])
+                    ->firstOrFail();
+        return view('heros.show', compact('fiche'));
     }
 
     // Résultats filtrés

@@ -50,7 +50,7 @@
         @if(Auth::check() && Auth::user()->is_admin)
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/admin') }}">
-            <i class="bi bi-person-circle"></i> dashboard
+            <i class="bi bi-speedometer2"></i> dashboard
           </a>
         </li>
 

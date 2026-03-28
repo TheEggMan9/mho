@@ -74,32 +74,6 @@ Route::middleware(['auth'])->group(function () {
         ->name('destroy');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Routes d'Authentification - Modérateurs
-|--------------------------------------------------------------------------
-*/
-Route::prefix('moderateurs')->name('moderateur.')->group(function () {
-    Route::middleware('guest:moderateur')->group(function () {
-        // Connexion modérateur
-        Route::get('/onglet/typeConnexion/moderateurs/seConnecterModerateur', [connexionModerateurController::class, 'showLoginForm'])
-            ->name('login');
-        Route::post('/onglet/typeConnexion/moderateurs/seConnecterModerateur', [connexionModerateurController::class, 'login'])
-            ->name('loginPost');
-    });
-
-    // Déconnexion modérateur
-    Route::post('/logout', [connexionModerateurController::class, 'logout'])
-        ->middleware('auth:moderateur')
-        ->name('logout');
-
-    // Routes protégées modérateur
-    Route::middleware(['auth:moderateur'])->group(function () {
-        Route::get('/indexModerateur', function () {
-            return view('moderateurs.indexModerateur');
-        })->name('index');
-    });
-});
 
 /*
 |--------------------------------------------------------------------------

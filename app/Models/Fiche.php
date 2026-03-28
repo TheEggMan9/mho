@@ -13,6 +13,14 @@ class Fiche extends Model
         'image',
         'espece_id',
         'organisation_id',
+        'nom_complet',
+        'profession',
+        'famille',
+        'pouvoirs',
+        'caracteristiques',
+        'affiliations',
+        'ennemis',
+        'histoire',
     ];
 
     public function espece()

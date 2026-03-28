@@ -2,6 +2,7 @@
 
 @section('title', 'Résultats de recherche')
 @section('background-class', 'bg-image')
+@use('Illuminate\Support\Facades\Storage')
 
 @section('styles')
 <link href="{{ asset('css/style3.css') }}" rel="stylesheet">
@@ -88,13 +89,9 @@
 
                         <div class="card h-100">
 
-                            {{-- IMAGE --}}
                             @if($fiche->image)
 
-                                <img src="{{ asset('img/heros/'.$fiche->image) }}"
-                                     class="card-img-top"
-                                     alt="{{ $fiche->nomFiche }}"
-                                     style="height:450px;object-fit:cover;">
+                                <img src="{{ Storage::url($fiche->image) }}" class="img-fluid" alt="{{ $fiche->nomFiche }}">
 
                             @else
 
