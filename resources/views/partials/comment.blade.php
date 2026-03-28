@@ -41,14 +41,14 @@
                                     <div>
                                         <strong class="text-primary">
                                             <i class="bi bi-person-circle"></i>
-                                            {{ $commentaire->compte->pseudo }}
+                                            {{ $commentaire->user->pseudo }}
                                         </strong>
                                         <small class="text-muted ms-2">
                                             <i class="bi bi-clock"></i>
                                             {{ $commentaire->created_at->diffForHumans() }}
                                         </small>
                                     </div>
-                                    @if(Auth::check() && Auth::id() === $commentaire->compte_id)
+                                    @if(Auth::check() && Auth::id() === $commentaire->user_id)
                                         <button 
                                             class="btn btn-sm btn-outline-danger delete-comment" 
                                             onclick="deleteComment({{ $commentaire->id }})"
