@@ -57,7 +57,9 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [ConnexionController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
-
+Route::get('/deconnexion', [ConnexionController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout.get');
 /*
 |--------------------------------------------------------------------------
 | Routes Protégées - Utilisateurs
@@ -105,12 +107,6 @@ Route::prefix('onglet/quizz')->name('quizz.')->group(function () {
         })->name('difficile');
     });
 });
-
-/*
-|--------------------------------------------------------------------------
-| Routes Commentaire
-|--------------------------------------------------------------------------
-*/
 
 /*
 |--------------------------------------------------------------------------

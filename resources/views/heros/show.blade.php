@@ -23,35 +23,35 @@
 
                     <ul class="hero-info-list">
                         @if($fiche->nom_complet)
-                            <li><strong>Nom complet :</strong> {{ $fiche->nom_complet }}</li>
+                            <li><strong>Nom complet :</strong> {!! $fiche->nom_complet !!}</li>
                         @endif
 
                         @if($fiche->profession)
-                            <li><strong>Profession(s) :</strong> {{ $fiche->profession }}</li>
+                            <li><strong>Profession(s) :</strong> {!! $fiche->profession !!}</li>
                         @endif
 
                         @if($fiche->famille)
-                            <li><strong>Famille :</strong> {{ $fiche->famille }}</li>
+                            <li><strong>Famille :</strong> {!! $fiche->famille !!}</li>
                         @endif
 
                         @if($fiche->espece)
-                            <li><strong>Espèce :</strong> {{ $fiche->espece->nomEspece }}</li>
+                            <li><strong>Espèce :</strong> {!! $fiche->espece->nomEspece !!}</li>
                         @endif
 
                         @if($fiche->pouvoirs)
-                            <li><strong>Pouvoir(s)/Arme(s)/Équipement(s) :</strong> {{ $fiche->pouvoirs }}</li>
+                            <li><strong>Pouvoir(s)/Arme(s)/Équipement(s) :</strong> {!! $fiche->pouvoirs !!}</li>
                         @endif
 
                         @if($fiche->caracteristiques)
-                            <li><strong>Caractéristique(s) :</strong> {{ $fiche->caracteristiques }}</li>
+                            <li><strong>Caractéristique(s) :</strong> {!! $fiche->caracteristiques !!}</li>
                         @endif
 
                         @if($fiche->affiliations)
-                            <li><strong>Affiliation(s) :</strong> {{ $fiche->affiliations }}</li>
+                            <li><strong>Affiliation(s) :</strong> {!! $fiche->affiliations !!}</li>
                         @endif
 
                         @if($fiche->ennemis)
-                            <li><strong>Ennemi(s) récurrent(s) :</strong> {{ $fiche->ennemis }}</li>
+                            <li><strong>Ennemi(s) récurrent(s) :</strong> {!! $fiche->ennemis !!}</li>
                         @endif
                     </ul>
                 </div>
@@ -68,7 +68,7 @@
                         @if($fiche->histoire)
                             @foreach(explode("\n", $fiche->histoire) as $paragraphe)
                                 @if(trim($paragraphe))
-                                    <p>{{ $paragraphe }}</p>
+                                    <p>{{!! $paragraphe !!}}</p>
                                 @endif
                             @endforeach
                         @else
