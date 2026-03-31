@@ -7,27 +7,19 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     /**
-     * Les middleware globaux de l'application.
-     *
-     * @var array<int, class-string|string>
+     * Middleware globaux de l'application
      */
-    protected $middlewareAliases = [
-        // Middleware globaux par défaut de Laravel
-        \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+    protected $middleware = [
+        \Illuminate\Http\Middleware\TrustProxies::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
+        \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
     /**
-     * Middleware pour les groupes de routes
-     *
-     * web : sessions, cookies, CSRF
-     * api : throttle, bindings
-     *
-     * @var array<string, array<int, class-string|string>>
+     * Groupes de middleware
      */
     protected $middlewareGroups = [
         'web' => [
@@ -46,11 +38,9 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * Middleware de route individuels
-     *
-     * @var array<string, class-string|string>
+     * Alias des middlewares (IMPORTANT pour les routes)
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -61,7 +51,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        // Ton middleware admin personnalisé
+        //middleware admin
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
 }

@@ -4,6 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+/**
+ * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\Fiche|null $fiche
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CommentaireLike> $likes
+ */
 
 class Commentaire extends Model
 {
