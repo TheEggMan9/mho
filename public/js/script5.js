@@ -19,10 +19,12 @@ function Quiz() {
         if (this.indexCurrentQuestion < this.questions.length) {
             this.questions[this.indexCurrentQuestion].getElement(
                 this.indexCurrentQuestion + 1,
-                this.questions.length
+                this.questions.length,
             );
         } else {
             questions_screen.style.display = "none";
+            document.querySelector(".question-container").style.display =
+                "none";
 
             let NbrCorrectUser = document.querySelector("#nbrCorrects");
             NbrCorrectUser.textContent = quiz.nbrCorrects;
@@ -33,7 +35,7 @@ function Quiz() {
 
 // Fonction Question permettant de créer les questions avec le titre, les réponses et la réponse correcte
 function Question(title, answers, correctAnswers) {
-    (this.title = title),
+    ((this.title = title),
         (this.answers = answers),
         (this.correctAnswers = correctAnswers),
         // Mise en place et structuration du HTML et CSS pour mes questions
@@ -68,9 +70,9 @@ function Question(title, answers, correctAnswers) {
             questions_screen.append(questionNumber);
 
             questions_screen.append(questionAnswer);
-        });
+        }));
 
-    (this.addAnswer = function (answer) {
+    ((this.addAnswer = function (answer) {
         this.answers.push(answer);
     }),
         // Ici on va checker la réponse correcte avec une écoute d'évènement :
@@ -82,7 +84,7 @@ function Question(title, answers, correctAnswers) {
             } else {
                 answerSelect.classList.add("answersWrong");
                 let RightAnswers = this.correctAnswers.map((index) =>
-                    document.getElementById(index)
+                    document.getElementById(index),
                 );
                 RightAnswers.forEach((RightAnswer) => {
                     RightAnswer.classList.add("answersCorrect");
@@ -95,7 +97,7 @@ function Question(title, answers, correctAnswers) {
                     return document
                         .getElementById(index)
                         .classList.contains("answersCorrect");
-                }
+                },
             );
 
             // Si toutes les bonnes réponses ont été sélectionnées, passez à la question suivante
@@ -106,7 +108,7 @@ function Question(title, answers, correctAnswers) {
                     quiz.displayCurrentQuestion();
                 }, 2000);
             }
-        });
+        }));
 
     // Si la réponse choisit par le user est égale à la réponse correcte retourner True sinon False
     this.isCorrectAnswer = function (answerUser) {
@@ -121,21 +123,21 @@ let quiz = new Quiz();
 let question1 = new Question(
     "Quel personnage Marvel est le créateur originel des Inhumains, selon les comics ? ",
     ["Les Krees", "Les Célestes", "Les Skrulls"],
-    [1]
+    [1],
 );
 quiz.addQuestion(question1);
 
 let question2 = new Question(
     "Quel personnage a été le premier porteur du symbiote Venom dans les comics, avant Eddie Brock (Venom) ",
     ["Peter Parker", "Mac Gargan", "Flash Thompson"],
-    [1]
+    [1],
 );
 quiz.addQuestion(question2);
 
 let question3 = new Question(
     "Quel est le véritable nom du super-vilain Mister Sinister ? ",
     ["Tobias Mordaunt", "Cornelius Starr", "Nathaniel Essex"],
-    [3]
+    [3],
 );
 quiz.addQuestion(question3);
 
@@ -150,7 +152,7 @@ NbrQuestion.forEach(function (NbrQuestion) {
 function startQuestions() {
     header_screen.style.display = "none";
     questions_screen.style.display = "block";
-
+    document.querySelector(".question-container").style.display = "block";
     quiz.displayCurrentQuestion();
 }
 

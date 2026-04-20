@@ -1,14 +1,13 @@
 /* ==================== STYLES PAGE DÉTAIL HÉROS ==================== */
 
 /* Image de fond pour page héros */
-/* Image de fond pour page héros */
 .bg-image-hero {
     background-image: url("../img/arrierePlan.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    width: 100%; /* ✅ REMIS */
+    width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -33,11 +32,6 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
     text-align: center;
-}
-
-.hero-image-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
 }
 
 .hero-image-card img {
@@ -124,12 +118,6 @@
     border-left: 4px solid #e74c3c;
     transition: all 0.2s ease;
     line-height: 1.6;
-}
-
-.hero-info-list li:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
-    background: #fff;
 }
 
 .hero-info-list li strong {

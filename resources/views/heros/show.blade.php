@@ -68,7 +68,7 @@
                         @if($fiche->histoire)
                             @foreach(explode("\n", $fiche->histoire) as $paragraphe)
                                 @if(trim($paragraphe))
-                                    <p>{{!! $paragraphe !!}}</p>
+                                    <p>{!! $paragraphe !!}</p>
                                 @endif
                             @endforeach
                         @else

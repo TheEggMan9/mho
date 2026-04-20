@@ -132,10 +132,6 @@ header {
     color: white;
 }
 
-.theme-card:hover .theme-icon {
-    transform: rotate(360deg) scale(1.1);
-}
-
 /* Thème Personnages - Rouge */
 .theme-card.personnage .theme-icon {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
@@ -715,6 +711,7 @@ header {
 
 /* Container de la question */
 .question-container {
+    display: none;
     background: white;
     border-radius: 25px;
     padding: 3rem;

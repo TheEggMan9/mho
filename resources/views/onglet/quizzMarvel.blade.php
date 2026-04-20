@@ -49,7 +49,7 @@
                     <p>Testez vos connaissances sur les héros et vilains Marvel</p>
                 </a>
 
-                <a href="#" class="theme-card informatique">
+<!--                 <a href="#" class="theme-card informatique">
                     <div class="theme-icon">
                         <i class="bi bi-laptop"></i>
                     </div>
@@ -63,7 +63,7 @@
                     </div>
                     <h3>Thème Énergie</h3>
                     <p>Explorez les pouvoirs et énergies de l'univers Marvel</p>
-                </a>
+                </a> -->
 
             </div>
 

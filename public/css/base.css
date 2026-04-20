@@ -14,10 +14,13 @@ img {
 /* Image de fond */
 .bg-image {
     background-image: url("../img/arrierePlan2.jpg");
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     width: 100%;
     min-height: 100vh;
-    overflow: auto;
+    overflow-x: hidden;
 }
 
 /* Header avec dégradé */
