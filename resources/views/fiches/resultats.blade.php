@@ -98,7 +98,7 @@
                                 <img src="{{ asset('img/default-hero.png') }}"
                                      class="card-img-top"
                                      alt="Image par défaut"
-                                     style="height:450px;object-fit:cover;">
+                                     style="height:10px;object-fit:cover;">
 
                             @endif
 
@@ -141,7 +141,7 @@
 
 
                                 <a href="{{ url('heros/'.$fiche->slug) }}"
-                                   class="btn btn-primary">
+                                   class="btn btn-primary mt-auto">
 
                                     <i class="bi bi-eye"></i>
                                     Voir la fiche

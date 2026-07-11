@@ -40,19 +40,6 @@
       margin: 0;
     }
     
-    .hero-icon {
-      width: 100px;
-      height: 100px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      backdrop-filter: blur(10px);
-    }
-    
     .email-body {
       padding: 40px 30px;
     }
@@ -95,8 +82,6 @@
     }
     
     .feature-item {
-      display: flex;
-      align-items: center;
       margin-bottom: 15px;
       padding: 15px;
       background: white;
@@ -106,24 +91,6 @@
     
     .feature-item:last-child {
       margin-bottom: 0;
-    }
-    
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #e74c3c, #c0392b);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 20px;
-      margin-right: 15px;
-      flex-shrink: 0;
-    }
-    
-    .feature-text {
-      flex: 1;
     }
     
     .feature-text strong {
@@ -182,21 +149,9 @@
     }
     
     .social-links a {
-      display: inline-block;
-      width: 35px;
-      height: 35px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      margin: 0 5px;
-      line-height: 35px;
       color: white;
       text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .social-links a:hover {
-      background: #e74c3c;
-      transform: translateY(-2px);
+      font-size: 13px;
     }
     
     @media only screen and (max-width: 600px) {
@@ -221,27 +176,22 @@
 <body>
 
 <div class="email-container">
-  <!-- Header -->
   <div class="email-header">
-    <div class="hero-icon">⚡</div>
     <h1>Marvel's Heroes Origins</h1>
     <p>Bienvenue dans l'univers Marvel !</p>
   </div>
   
-  <!-- Body -->
   <div class="email-body">
     <div class="welcome-message">
-      <h2>Bonjour <span class="user-name">{{ $user->prenom }}</span> ! 🎉</h2>
+      <h2>Bonjour <span class="user-name">{{ $user->prenom }}</span> !</h2>
       <p>Nous sommes ravis de vous accueillir dans notre communauté !</p>
       <p>Votre compte a été créé avec succès. Vous pouvez maintenant explorer l'univers des super-héros Marvel et tester vos connaissances.</p>
     </div>
     
-    <!-- Features Section -->
     <div class="features-section">
       <h3>Ce qui vous attend :</h3>
       
       <div class="feature-item">
-        <div class="feature-icon">🦸</div>
         <div class="feature-text">
           <strong>Découvrez les héros</strong>
           <span>Explorez les origines de vos personnages Marvel préférés</span>
@@ -249,7 +199,6 @@
       </div>
       
       <div class="feature-item">
-        <div class="feature-icon">📚</div>
         <div class="feature-text">
           <strong>Sommaire complet</strong>
           <span>Naviguez facilement parmi tous les personnages</span>
@@ -258,25 +207,22 @@
     
 
       <div class="feature-item">
-        <div class="feature-icon">🎮</div>
         <div class="feature-text">
           <strong>Quiz interactifs</strong>
           <span>Testez vos connaissances avec nos quiz par thème</span>
         </div>
       </div>
     </div>
-    <!-- Call to Action -->
     <div class="cta-button">
       <a href="{{ url('/') }}">Commencer l'aventure</a>
     </div>
     
     <div style="text-align: center; color: #7f8c8d; font-size: 14px; margin-top: 30px;">
       <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
-      <p>Bonne exploration ! 🌟</p>
+      <p>Bonne exploration !</p>
     </div>
   </div>
   
-  <!-- Footer -->
   <div class="email-footer">
     <p><strong>Marvel's Heroes Origins</strong></p>
     <p>© {{ date('Y') }} Tous droits réservés</p>
@@ -286,7 +232,7 @@
     </p>
     
     <div class="social-links">
-      <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank">📷</a>
+      <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank">Instagram</a>
     </div>
   </div>
 </div>

@@ -50,8 +50,8 @@
         </h2>
         <p class="description-text">
           Marvel's Heroes Origins est une encyclopédie en ligne consacrée à l'univers Marvel. 
-          Son objectif principal est de fournir une source complète d'informations sur les personnages, 
-          les lieux <span class="badge bg-warning text-dark">prochainement...</span> et les événements <span class="badge bg-warning text-dark">prochainement...</span> qui composent l'univers des bandes dessinées Marvel.
+          Son objectif principal est de fournir une source complète d'informations sur les personnages et prochainement,
+          les lieux et les événements, qui composent l'univers des bandes dessinées Marvel.
         </p>
         <p class="description-text mb-0">
           Marvel's Heroes Origins vise à servir de guide complet et informatif pour les fans de Marvel et les novices, 

@@ -12,7 +12,7 @@ class FilamentServiceProvider extends ServiceProvider
     {
         Filament::serving(function () {
             if (!Auth::check() || !Auth::user()->is_admin) {
-                abort(403, 'Accès interdit aux utilisateurs non-admin.');
+                abort(404, 'Not Found');
             }
         });
     }

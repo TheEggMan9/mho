@@ -80,8 +80,8 @@
 }
 
 .hero-story-card .hero-story {
-    flex: 1;
-    overflow-y: auto;
+    flex: none;
+    overflow: visible;
 }
 
 /* Titres de section */
@@ -146,7 +146,7 @@
     margin-bottom: 0;
 }
 
-/* Scrollbar personnalisée pour histoire */
+/* Scrollbar personnalisée pour histoire 
 .hero-story-card .hero-story::-webkit-scrollbar {
     width: 8px;
 }
@@ -163,7 +163,7 @@
 
 .hero-story-card .hero-story::-webkit-scrollbar-thumb:hover {
     background: #c0392b;
-}
+}*/
 
 /* Liens vers autres héros */
 .hero-link-hero {
@@ -394,12 +394,21 @@
 
 /* Responsive */
 @media (max-width: 576px) {
-    .comment-item {
-        padding: 0.75rem;
+    .hero-story-card {
+        height: auto;
+        display: block;
     }
 
-    .comment-content {
-        font-size: 0.95rem;
+    .hero-story-card .hero-story {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .hero-story p {
+        text-align: left;
+        word-spacing: normal;
+        letter-spacing: normal;
+        line-height: 1.7;
     }
 }
 

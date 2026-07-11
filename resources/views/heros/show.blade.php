@@ -8,6 +8,7 @@
             <!-- Colonne gauche: Image + Descriptif -->
             <div class="col-lg-5">
                 <div class="hero-image-card">
+                  <!--<img src="{{ Storage::url($fiche->image) }}" class="img-fluid" alt="{{ $fiche->nomFiche }}">-->
                   <img src="{{ Storage::url($fiche->image) }}" class="img-fluid" alt="{{ $fiche->nomFiche }}">
                     <div class="hero-name-badge">
                         <h1>{{ strtoupper($fiche->nomFiche) }}</h1>

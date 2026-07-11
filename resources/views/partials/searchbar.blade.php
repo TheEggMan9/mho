@@ -1,4 +1,4 @@
-<div class="container text-center py-4">
+<div class="container text-center py-4 bg-primary">
     <form id="searchForm"
           data-baseurl="{{ url('heros') }}"
           data-searchurl="{{ url('/search') }}"
@@ -14,7 +14,7 @@
             <div class="col">
                 <select id="especeFilter" class="form-select">
                     <option value="">Toutes les espèces</option>
-                    @foreach(App\Models\Espece::all() as $espece)
+                    @foreach(App\Models\Espece::orderBy('nomEspece')->get() as $espece)
                         <option value="{{ $espece->id }}">
                             {{ $espece->nomEspece }}
                         </option>
@@ -25,7 +25,7 @@
             <div class="col">
                 <select id="orgFilter" class="form-select">
                     <option value="">Toutes les organisations</option>
-                    @foreach(App\Models\Organisation::all() as $org)
+                    @foreach(App\Models\Organisation::orderBy('nomOrganisation')->get() as $org)
                         <option value="{{ $org->id }}">
                             {{ $org->nomOrganisation }}
                         </option>

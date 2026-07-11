@@ -15,9 +15,10 @@ class SearchController extends Controller
         $query = $request->get('q');
 
         $results = Fiche::query()
-            ->with(['espece', 'organisation']) // ← IMPORTANT : charger les relations
+            ->with(['espece', 'organisation'])
             ->when($query, fn($q) => $q->where('nomFiche', 'like', "%{$query}%"))
             ->select('id', 'nomFiche', 'slug', 'image', 'espece_id', 'organisation_id')
+            ->orderBy('nomFiche', 'asc')
             ->get();
 
         return response()->json($results);
@@ -27,8 +28,9 @@ class SearchController extends Controller
     public function show($slug)
     {
         $fiche = Fiche::where('slug', $slug)
-                    ->with(['espece', 'organisation'])
-                    ->firstOrFail();
+            ->with(['espece', 'organisation'])
+            ->firstOrFail();
+
         return view('heros.show', compact('fiche'));
     }
 
@@ -42,6 +44,7 @@ class SearchController extends Controller
             ->with(['espece', 'organisation'])
             ->when($especeId, fn($q) => $q->where('espece_id', $especeId))
             ->when($orgId, fn($q) => $q->where('organisation_id', $orgId))
+            ->orderBy('nomFiche', 'asc')
             ->get();
 
         // Si requête AJAX -> retourner JSON

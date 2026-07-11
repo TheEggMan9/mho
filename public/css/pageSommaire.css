@@ -4,8 +4,8 @@
 .sommaire-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px; /* AJOUTÉ */
-    overflow-x: hidden; /* AJOUTÉ */
+    padding: 0 15px;
+    overflow-x: hidden;
 }
 
 .sommaire-header {
@@ -38,9 +38,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1.5rem;
-    width: 100%; /* AJOUTÉ */
-    max-width: 100%; /* AJOUTÉ */
-    overflow-x: hidden; /* AJOUTÉ */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* Carte de lettre */
@@ -137,17 +137,17 @@
     top: 100%;
     left: 0;
     right: 0;
-    width: 100%; /* AJOUTÉ */
-    max-width: 100%; /* AJOUTÉ */
+    width: 100%;
+    max-width: 100%;
     padding: 1rem;
     background: white;
     max-height: 400px;
     overflow-y: auto;
-    overflow-x: hidden; /* AJOUTÉ */
+    overflow-x: hidden;
     z-index: 1001;
     border-radius: 0 0 15px 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    box-sizing: border-box; /* AJOUTÉ */
+    box-sizing: border-box;
 }
 
 .hero-link {
@@ -159,9 +159,9 @@
     margin-bottom: 0.5rem;
     transition: all 0.2s ease;
     font-weight: 500;
-    overflow: hidden; /* AJOUTÉ */
-    text-overflow: ellipsis; /* AJOUTÉ */
-    white-space: nowrap; /* AJOUTÉ */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .hero-link:hover {
@@ -176,7 +176,7 @@
     font-size: 0.8rem;
 }
 
-/* Scrollbar personnalisée pour la liste */
+/* Scrollbar personnalisée pour la liste 
 .hero-list::-webkit-scrollbar {
     width: 6px;
 }
@@ -193,7 +193,7 @@
 
 .hero-list::-webkit-scrollbar-thumb:hover {
     background: #c0392b;
-}
+}*/
 
 /* Responsive pour sommaire */
 @media (max-width: 768px) {

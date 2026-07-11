@@ -21,25 +21,43 @@
 
     {{-- CSS spécifique --}}
     @yield('styles')
+
+    <style>
+        #top-block {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+
+        #page-content {
+            padding-top: 220px;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="@yield('background-class', 'bg-image-hero')">
 
-    {{-- Header --}}
-    @include('partials.header')
+    <div id="top-block">
+        {{-- Header --}}
+        @include('partials.header')
 
-    {{-- Navbar --}}
-    @include('partials.navbar')
+        {{-- Navbar --}}
+        @include('partials.navbar')
 
-    {{-- Searchbar (désactivable) --}}
-    @unless(View::hasSection('no-searchbar'))
-        @include('partials.searchbar')
-    @endunless
+        {{-- Searchbar (désactivable) --}}
+        @unless(View::hasSection('no-searchbar'))
+            @include('partials.searchbar')
+        @endunless
+    </div>
 
-    {{-- Contenu principal --}}
-    @yield('content')
+    <div id="page-content">
+        {{-- Contenu principal --}}
+        @yield('content')
+    </div>
 
 </div>
 
@@ -53,6 +71,23 @@
 
 {{-- JS spécifique --}}
 @yield('scripts')
+
+{{-- Ajuste dynamiquement le padding selon la hauteur réelle du bloc fixe --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const topBlock = document.getElementById('top-block');
+    const pageContent = document.getElementById('page-content');
+
+    function adjustPadding() {
+        if (topBlock && pageContent) {
+            pageContent.style.paddingTop = topBlock.offsetHeight + 'px';
+        }
+    }
+
+    adjustPadding();
+    window.addEventListener('resize', adjustPadding);
+});
+</script>
 
 {{-- Toggle universel mot de passe --}}
 <script>
