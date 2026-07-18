@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
 class Fiche extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nomFiche',
         'slug',
@@ -38,13 +41,11 @@ class Fiche extends Model
         return $this->hasMany(Like::class);
     }
 
-    // Vérifier si l'utilisateur connecté a liké
     public function isLikedBy($userId)
     {
         return $this->likes()->where('user_id', $userId)->exists();
     }
 
-    // Nombre de likes
     public function likesCount()
     {
         return $this->likes()->count();

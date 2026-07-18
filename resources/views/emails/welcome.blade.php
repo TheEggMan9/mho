@@ -230,12 +230,12 @@
       <a href="{{ url('/') }}">Visiter le site</a> | 
       <a href="{{ url('/onglet/monCompte') }}">Mon compte</a>
     </p>
-    
-    <div class="social-links">
-      <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank">Instagram</a>
-    </div>
   </div>
 </div>
 
 </body>
 </html>
+
+    <!--<div class="social-links">
+      <a href="https://www.instagram.com/math.is93000?igshid=ZDc4ODBmNjlmNQ==" target="_blank">Instagram</a>
+    </div>-->

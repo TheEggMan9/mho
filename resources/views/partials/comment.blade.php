@@ -14,7 +14,7 @@
                                     class="form-control" 
                                     id="commentInput" 
                                     rows="3" 
-                                    placeholder="Partagez votre avis sur {{ $fiche->nomFiche }}..."
+                                    placeholder="Partagez votre avis sur {{ $fiche->nomFiche }}... (minimum 3 caratères)"
                                     maxlength="500"
                                     required
                                 ></textarea>

@@ -47,7 +47,6 @@ class SearchController extends Controller
             ->orderBy('nomFiche', 'asc')
             ->get();
 
-        // Si requête AJAX -> retourner JSON
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json($fiches);
         }
