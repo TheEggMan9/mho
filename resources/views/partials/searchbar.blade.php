@@ -1,5 +1,5 @@
-<div class="container text-center py-4 bg-primary">
-    <form id="searchForm"
+<div class="container text-center py-1 py-md-4 bg-primary">
+        <form id="searchForm"
           data-baseurl="{{ url('heros') }}"
           data-searchurl="{{ url('/search') }}"
           data-resultatsurl="{{ url('/fiches/resultats') }}">

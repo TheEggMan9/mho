@@ -35,12 +35,6 @@
 <!-- Section principale avec hero et description -->
 <div class="container py-5">
   <div class="row align-items-center g-4">
-    <!-- Groot Animation -->
-    <div class="col-md-5 text-center">
-      <div class="hero-image-container">
-        <img src="{{ asset('img/groot.gif') }}" alt="Groot" class="img-fluid hero-image">
-      </div>
-    </div>
 
     <!-- Description -->
     <div class="col-md-7">
@@ -59,6 +53,14 @@
         </p>
       </div>
     </div>
+
+        <!-- Groot Animation -->
+    <div class="col-md-5 text-center">
+      <div class="hero-image-container">
+        <img src="{{ asset('img/groot.gif') }}" alt="Groot" class="img-fluid hero-image">
+      </div>
+    </div>
+    
   </div>
 </div>
 

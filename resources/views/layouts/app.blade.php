@@ -30,10 +30,6 @@
             width: 100%;
             z-index: 1030;
         }
-
-        #page-content {
-            padding-top: 220px;
-        }
     </style>
 </head>
 
