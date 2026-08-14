@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Déploiement
         run: |
-          cd /root/mho
+          cd /home/deploy/mho
           git pull origin main
           docker compose exec -T laravel.test composer install --no-interaction --optimize-autoloader
           docker compose exec -T laravel.test php artisan migrate --force
