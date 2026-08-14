@@ -8,6 +8,7 @@ use App\Http\Controllers\supprimerCompteController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\CommentaireController;
+use App\Http\Controllers\MotDePasseOublieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,15 @@ Route::middleware('guest')->group(function () {
         ->name('login');
     Route::post('/onglet/seConnecter', [ConnexionController::class, 'login'])
         ->name('loginUtilisateur');
+        
+    Route::get('/mot-de-passe-oublie', [MotDePasseOublieController::class, 'showLinkRequestForm'])
+        ->name('password.request');
+    Route::post('/mot-de-passe-oublie', [MotDePasseOublieController::class, 'envoyerLien'])
+        ->name('password.email');
+    Route::get('/reset-password/{token}', [MotDePasseOublieController::class, 'showResetForm'])
+        ->name('password.reset');
+    Route::post('/reset-password', [MotDePasseOublieController::class, 'reinitialiser'])
+        ->name('password.update');
 
 
     // Inscription utilisateur

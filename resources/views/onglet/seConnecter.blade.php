@@ -71,6 +71,10 @@
           </div>
         </div>
 
+        <div class="text-end mb-3">
+          <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+        </div>
+
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="remember" name="remember" value="1">
           <label class="form-check-label" for="remember">Se souvenir de moi</label>

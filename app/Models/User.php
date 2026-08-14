@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -42,5 +43,11 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->is_admin;
-    }	
+    }
+
+    // Email de réinitialisation de mot de passe (template custom MHO)
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
 }

@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('title', "Mon compte - Marvel's Heroes Origins")
-
 @section('background-class', 'bg-image')
-
 @section('no-searchbar')
 @endsection
 
@@ -13,6 +11,10 @@
   <div class="account-container">
 
     @if(Auth::check())
+
+      @if (session('status'))
+        <div class="alert alert-success">{{ session('status') }}</div>
+      @endif
 
       <!-- Carte d'informations personnelles -->
       <div class="account-info-card">
@@ -46,6 +48,68 @@
         </div>
       </div>
 
+      <!-- Carte modification du mot de passe -->
+      <div class="account-info-card">
+        <div class="account-details">
+          <h3><i class="bi bi-key-fill"></i> Modifier mon mot de passe</h3>
+
+          @if ($errors->has('current_password') || $errors->has('password'))
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          <form action="{{ route('password.change') }}" method="post">
+            @csrf
+            @method('PUT')
+
+            <div class="mb-3">
+              <label for="current_password" class="form-label">
+                <i class="bi bi-lock-fill"></i> Mot de passe actuel
+              </label>
+              <div class="input-group">
+                <input type="password" id="current_password" name="current_password" class="form-control" required>
+                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="current_password">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="bi bi-key"></i> Nouveau mot de passe
+              </label>
+              <div class="input-group">
+                <input type="password" id="password" name="password" class="form-control" required>
+                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="password">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password_confirmation" class="form-label">
+                <i class="bi bi-key"></i> Confirmer le nouveau mot de passe
+              </label>
+              <div class="input-group">
+                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
+                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="password_confirmation">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="bi bi-check-circle-fill"></i> Mettre à jour le mot de passe
+            </button>
+          </form>
+        </div>
+      </div>
+
       <!-- Carte suppression -->
       <div class="account-danger-card">
 
@@ -53,7 +117,7 @@
           La suppression de votre compte est définitive et irréversible.
         </p>
 
-        @if ($errors->any())
+        @if ($errors->has('password') && !$errors->has('current_password'))
           <div class="alert alert-danger">
             <ul class="mb-0">
               @foreach ($errors->all() as $error)
@@ -68,14 +132,14 @@
           @method('DELETE')
 
           <div class="mb-3">
-            <label for="password" class="form-label">
+            <label for="delete_password" class="form-label">
               <i class="bi bi-lock-fill"></i> Confirmez avec votre mot de passe
             </label>
 
             <div class="input-group">
-              <input type="password" id="password" name="password" class="form-control" required>
-              <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                <i class="bi bi-eye" id="eyeIcon"></i>
+              <input type="password" id="delete_password" name="password" class="form-control" required>
+              <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="delete_password">
+                <i class="bi bi-eye"></i>
               </button>
             </div>
           </div>
@@ -88,13 +152,10 @@
 
     @else
 
-      <!-- Non connecté -->
       <div class="account-not-connected text-center">
         <i class="bi bi-person-x-fill fs-1"></i>
         <h2>Vous n'êtes pas connecté</h2>
-        <a href="{{ route('seConnecter') }}" class="btn btn-primary mt-3">
-          Se connecter
-        </a>
+        <a href="{{ route('seConnecter') }}" class="btn btn-primary mt-3">Se connecter</a>
       </div>
 
     @endif
@@ -104,25 +165,10 @@
 
 @endsection
 
-
-{{-- JS spécifique à cette page --}}
 @section('scripts')
 <script>
-document.getElementById('togglePassword')?.addEventListener('click', function () {
-    const passwordField = document.getElementById('password');
-    const eyeIcon = document.getElementById('eyeIcon');
-
-    if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        eyeIcon.classList.replace('bi-eye', 'bi-eye-slash');
-    } else {
-        passwordField.type = 'password';
-        eyeIcon.classList.replace('bi-eye-slash', 'bi-eye');
-    }
-});
-
 function confirmDelete() {
-    const password = document.getElementById('password').value;
+    const password = document.getElementById('delete_password').value;
 
     if (!password) {
         alert('Veuillez saisir votre mot de passe.');

@@ -15,7 +15,7 @@
                 <select id="especeFilter" class="form-select">
                     <option value="">Toutes les espèces</option>
                     @foreach(App\Models\Espece::orderBy('nomEspece')->get() as $espece)
-                        <option value="{{ $espece->id }}">
+                        <option value="{{ $espece->id }}" @selected(request('espece_id') == $espece->id)>
                             {{ $espece->nomEspece }}
                         </option>
                     @endforeach
@@ -26,7 +26,7 @@
                 <select id="orgFilter" class="form-select">
                     <option value="">Toutes les organisations</option>
                     @foreach(App\Models\Organisation::orderBy('nomOrganisation')->get() as $org)
-                        <option value="{{ $org->id }}">
+                        <option value="{{ $org->id }}" @selected(request('organisation_id') == $org->id)>
                             {{ $org->nomOrganisation }}
                         </option>
                     @endforeach
