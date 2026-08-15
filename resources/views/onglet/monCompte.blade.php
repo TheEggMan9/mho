@@ -48,68 +48,6 @@
         </div>
       </div>
 
-      <!-- Carte modification du mot de passe -->
-      <div class="account-info-card">
-        <div class="account-details">
-          <h3><i class="bi bi-key-fill"></i> Modifier mon mot de passe</h3>
-
-          @if ($errors->has('current_password') || $errors->has('password'))
-            <div class="alert alert-danger">
-              <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
-
-          <form action="{{ route('password.change') }}" method="post">
-            @csrf
-            @method('PUT')
-
-            <div class="mb-3">
-              <label for="current_password" class="form-label">
-                <i class="bi bi-lock-fill"></i> Mot de passe actuel
-              </label>
-              <div class="input-group">
-                <input type="password" id="current_password" name="current_password" class="form-control" required>
-                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="current_password">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">
-                <i class="bi bi-key"></i> Nouveau mot de passe
-              </label>
-              <div class="input-group">
-                <input type="password" id="password" name="password" class="form-control" required>
-                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="password">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="password_confirmation" class="form-label">
-                <i class="bi bi-key"></i> Confirmer le nouveau mot de passe
-              </label>
-              <div class="input-group">
-                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
-                <button class="btn btn-outline-secondary toggle-password-btn" type="button" data-target="password_confirmation">
-                  <i class="bi bi-eye"></i>
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">
-              <i class="bi bi-check-circle-fill"></i> Mettre à jour le mot de passe
-            </button>
-          </form>
-        </div>
-      </div>
-
       <!-- Carte suppression -->
       <div class="account-danger-card">
 
