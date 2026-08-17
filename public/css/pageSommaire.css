@@ -1,6 +1,5 @@
-/* ==================== STYLES PAGE SOMMAIRE ==================== */
+/* ==================== STYLES PAGE SOMMAIRE (version consolidée) ==================== */
 
-/* Container du sommaire */
 .sommaire-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -33,14 +32,13 @@
     margin: 0;
 }
 
-/* Grille alphabétique - UNE SEULE FOIS */
+/* Grille alphabétique */
 .alphabet-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1.5rem;
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
 }
 
 /* Carte de lettre */
@@ -51,7 +49,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     position: relative;
-    z-index: 1;
+    scroll-margin-top: 220px; /* valeur de secours, recalculée dynamiquement en JS */
 }
 
 .letter-card:hover {
@@ -59,9 +57,10 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Quand la carte est ouverte, augmenter le z-index */
+/* Quand la carte est ouverte : prend toute la largeur de la grille,
+   ce qui pousse naturellement les autres cartes en dessous (plus de superposition) */
 .letter-card:has(.collapse.show) {
-    z-index: 1000;
+    grid-column: 1 / -1;
 }
 
 /* Bouton de lettre */
@@ -89,9 +88,8 @@
     background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-/* Flèche indicatrice */
 .btn-letter::after {
-    content: "\f282"; /* Code Bootstrap Icons pour chevron-down */
+    content: "\f282";
     font-family: "bootstrap-icons";
     position: absolute;
     bottom: 0.5rem;
@@ -101,12 +99,10 @@
     transition: transform 0.3s ease;
 }
 
-/* Rotation de la flèche quand ouvert */
 .btn-letter[aria-expanded="true"]::after {
     transform: rotate(180deg);
 }
 
-/* Animation au survol de la flèche */
 .btn-letter:hover::after {
     color: white;
 }
@@ -126,27 +122,16 @@
     border-radius: 20px;
 }
 
-/* Le collapse en position relative */
-.letter-card .collapse {
-    position: relative;
-}
-
-/* Liste des héros en position absolue pour passer au-dessus */
+/* Liste des héros : reste dans le flux normal du document (plus de position: absolute)
+   -> pousse naturellement le contenu suivant, animation Bootstrap fonctionne nativement,
+   plus de superposition avec les cartes voisines */
 .hero-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
     padding: 1rem;
     background: white;
     max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 1001;
     border-radius: 0 0 15px 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
 }
 
@@ -159,9 +144,7 @@
     margin-bottom: 0.5rem;
     transition: all 0.2s ease;
     font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal; /* le texte peut passer à la ligne, plus de troncature */
 }
 
 .hero-link:hover {
@@ -176,26 +159,7 @@
     font-size: 0.8rem;
 }
 
-/* Scrollbar personnalisée pour la liste 
-.hero-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.hero-list::-webkit-scrollbar-track {
-    background: #e0e0e0;
-    border-radius: 10px;
-}
-
-.hero-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    border-radius: 10px;
-}
-
-.hero-list::-webkit-scrollbar-thumb:hover {
-    background: #c0392b;
-}*/
-
-/* Responsive pour sommaire */
+/* Responsive */
 @media (max-width: 768px) {
     .alphabet-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));

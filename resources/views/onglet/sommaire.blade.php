@@ -13,7 +13,7 @@
       <p>Parcourez l'encyclopédie par ordre alphabétique</p>
     </div>
 
-    <div class="alphabet-grid">
+    <div class="alphabet-grid" id="alphabetAccordion">
 
     <!-- Lettre A -->
       <div class="letter-card">
@@ -21,7 +21,7 @@
           <span class="letter-icon">A</span>
           <span class="letter-count">16</span>
         </button>
-        <div class="collapse" id="collapseA">
+        <div class="collapse" id="collapseA" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/abomination') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Abomination</a>
             <a href="{{ url('/heros/absorbing-man') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Absorbing Man</a>
@@ -49,7 +49,7 @@
           <span class="letter-icon">B</span>
           <span class="letter-count">14</span>
         </button>
-        <div class="collapse" id="collapseB">
+        <div class="collapse" id="collapseB" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/baron-mordo') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Baron Mordo</a>
             <a href="{{ url('/heros/baron-zemo') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Baron Zemo</a>
@@ -75,7 +75,7 @@
           <span class="letter-icon">C</span>
           <span class="letter-count">17</span>
         </button>
-        <div class="collapse" id="collapseC">
+        <div class="collapse" id="collapseC" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/cable') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Cable</a>
             <a href="{{ url('/heros/cannonball') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Cannonball</a>
@@ -104,7 +104,7 @@
           <span class="letter-icon">D</span>
           <span class="letter-count">17</span>
         </button>
-        <div class="collapse" id="collapseD">
+        <div class="collapse" id="collapseD" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/dagger') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Dagger</a>
             <a href="{{ url('/heros/daredevil') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Daredevil</a>
@@ -133,7 +133,7 @@
           <span class="letter-icon">E</span>
           <span class="letter-count">5</span>
         </button>
-        <div class="collapse" id="collapseE">
+        <div class="collapse" id="collapseE" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/ebony-maw') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Ebony Maw</a>
             <a href="{{ url('/heros/electro') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Electro</a>
@@ -150,7 +150,7 @@
           <span class="letter-icon">F</span>
           <span class="letter-count">2</span>
         </button>
-        <div class="collapse" id="collapseF">
+        <div class="collapse" id="collapseF" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/falcon') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Falcon</a>
             <a href="{{ url('/heros/forge') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Forge</a>
@@ -164,7 +164,7 @@
           <span class="letter-icon">G</span>
           <span class="letter-count">8</span>
         </button>
-        <div class="collapse" id="collapseG">
+        <div class="collapse" id="collapseG" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/galactus') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Galactus</a>
             <a href="{{ url('/heros/gambit') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Gambit</a>
@@ -184,7 +184,7 @@
           <span class="letter-icon">H</span>
           <span class="letter-count">13</span>
         </button>
-        <div class="collapse" id="collapseH">
+        <div class="collapse" id="collapseH" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/havok') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Havok</a>
             <a href="{{ url('/heros/hawkeye') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Hawkeye</a>
@@ -209,7 +209,7 @@
           <span class="letter-icon">I</span>
           <span class="letter-count">7</span>
         </button>
-        <div class="collapse" id="collapseI">
+        <div class="collapse" id="collapseI" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/ice-man') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Ice Man</a>
             <a href="{{ url('/heros/infinaut') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Infinaut</a>
@@ -228,7 +228,7 @@
           <span class="letter-icon">J</span>
           <span class="letter-count">6</span>
         </button>
-        <div class="collapse" id="collapseJ">
+        <div class="collapse" id="collapseJ" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/jane-foster') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Jane Foster</a>
             <a href="{{ url('/heros/jean-grey') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Jean Grey</a>
@@ -246,7 +246,7 @@
           <span class="letter-icon">K</span>
           <span class="letter-count">11</span>
         </button>
-        <div class="collapse" id="collapseK">
+        <div class="collapse" id="collapseK" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/ka-zar') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Ka-Zar</a>
             <a href="{{ url('/heros/kamala-khan') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Kamala Khan</a>
@@ -269,7 +269,7 @@
           <span class="letter-icon">L</span>
           <span class="letter-count">8</span>
         </button>
-        <div class="collapse" id="collapseL">
+        <div class="collapse" id="collapseL" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/leader') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Leader</a>
             <a href="{{ url('/heros/leech') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Leech</a>
@@ -289,7 +289,7 @@
           <span class="letter-icon">M</span>
           <span class="letter-count">24</span>
         </button>
-        <div class="collapse" id="collapseM">
+        <div class="collapse" id="collapseM" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/magik') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Magik</a>
             <a href="{{ url('/heros/magneto') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Magneto</a>
@@ -325,7 +325,7 @@
           <span class="letter-icon">N</span>
           <span class="letter-count">7</span>
         </button>
-        <div class="collapse" id="collapseN">
+        <div class="collapse" id="collapseN" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/nakia') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Nakia</a>
             <a href="{{ url('/heros/namor') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Namor</a>
@@ -344,7 +344,7 @@
           <span class="letter-icon">O</span>
           <span class="letter-count">4</span>
         </button>
-        <div class="collapse" id="collapseO">
+        <div class="collapse" id="collapseO" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/odin') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Odin</a>
             <a href="{{ url('/heros/okoye') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Okoye</a>
@@ -360,7 +360,7 @@
           <span class="letter-icon">P</span>
           <span class="letter-count">6</span>
         </button>
-        <div class="collapse" id="collapseP">
+        <div class="collapse" id="collapseP" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/patriot') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Patriot</a>
             <a href="{{ url('/heros/peggy-carter') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Peggy Carter</a>
@@ -378,7 +378,7 @@
           <span class="letter-icon">Q</span>
           <span class="letter-count">2</span>
         </button>
-        <div class="collapse" id="collapseQ">
+        <div class="collapse" id="collapseQ" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/quake') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Quake</a>
             <a href="{{ url('/heros/quicksilver') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Quicksilver</a>
@@ -392,7 +392,7 @@
           <span class="letter-icon">R</span>
           <span class="letter-count">9</span>
         </button>
-        <div class="collapse" id="collapseR">
+        <div class="collapse" id="collapseR" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/red-guardian') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Red Guardian</a>
             <a href="{{ url('/heros/red-hulk') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Red Hulk</a>
@@ -413,7 +413,7 @@
           <span class="letter-icon">S</span>
           <span class="letter-count">34</span>
         </button>
-        <div class="collapse" id="collapseS">
+        <div class="collapse" id="collapseS" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/sabretooth') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Sabretooth</a>
             <a href="{{ url('/heros/sandman') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Sandman</a>
@@ -460,7 +460,7 @@
           <span class="letter-icon">T</span>
           <span class="letter-count">7</span>
         </button>
-        <div class="collapse" id="collapseT">
+        <div class="collapse" id="collapseT" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/taskmaster') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Taskmaster</a>
             <a href="{{ url('/heros/thanos') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Thanos</a>
@@ -479,7 +479,7 @@
           <span class="letter-icon">U</span>
           <span class="letter-count">2</span>
         </button>
-        <div class="collapse" id="collapseU">
+        <div class="collapse" id="collapseU" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/uatu') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Uatu</a>
             <a href="{{ url('/heros/ultron') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Ultron</a>
@@ -493,7 +493,7 @@
           <span class="letter-icon">V</span>
           <span class="letter-count">5</span>
         </button>
-        <div class="collapse" id="collapseV">
+        <div class="collapse" id="collapseV" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/valkyrie') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Valkyrie</a>
             <a href="{{ url('/heros/venom') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Venom</a>
@@ -510,7 +510,7 @@
           <span class="letter-icon">W</span>
           <span class="letter-count">9</span>
         </button>
-        <div class="collapse" id="collapseW">
+        <div class="collapse" id="collapseW" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/war-machine') }}" class="hero-link"><i class="bi bi-chevron-right"></i> War Machine</a>
             <a href="{{ url('/heros/warpath') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Warpath</a>
@@ -531,7 +531,7 @@
           <span class="letter-icon">Y</span>
           <span class="letter-count">2</span>
         </button>
-        <div class="collapse" id="collapseY">
+        <div class="collapse" id="collapseY" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/yelena-belova') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Yelena Belova</a>
             <a href="{{ url('/heros/yondu') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Yondu</a>
@@ -545,7 +545,7 @@
           <span class="letter-icon">Z</span>
           <span class="letter-count">2</span>
         </button>
-        <div class="collapse" id="collapseZ">
+        <div class="collapse" id="collapseZ" data-bs-parent="#alphabetAccordion">
           <div class="hero-list">
             <a href="{{ url('/heros/zabu') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Zabu</a>
             <a href="{{ url('/heros/zero') }}" class="hero-link"><i class="bi bi-chevron-right"></i> Zero</a>
@@ -556,4 +556,23 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const collapseElements = document.querySelectorAll('.alphabet-grid .collapse');
+    const topBlock = document.getElementById('top-block');
+
+    collapseElements.forEach(function (el) {
+        el.addEventListener('shown.bs.collapse', function () {
+            const card = el.closest('.letter-card');
+            if (card && topBlock) {
+                card.style.scrollMarginTop = topBlock.offsetHeight + 'px';
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
+</script>
 @endsection
