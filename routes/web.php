@@ -119,9 +119,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('onglet.monCompte');
     })->name('account');
 
-    Route::post('/mon-compte/envoyer-lien-reinitialisation', [MotDePasseOublieController::class, 'envoyerLien'])
-        ->name('password.email');
-
     // Suppression de compte
     Route::delete('/supprimer-compte', [supprimerCompteController::class, 'destroy'])
         ->name('destroy');
