@@ -74,18 +74,10 @@ class CreerCompteController extends Controller
 
         RateLimiter::clear($this->throttleKey($request));
 
-        try {
-            Mail::to($user->email)->send(new WelcomeEmail($user));
-        } catch (\Exception $e) {
-            \Log::error('Erreur envoi email bienvenue', [
-                'user_id' => $user->id,
-                'error' => $e->getMessage()
-            ]);
-        }
-
-        return redirect('/')->with(
+        return redirect()->route('verification.notice')->with(
             'success',
-            'Bienvenue ' . ($user->prenom ?? $user->name) . ' ! Votre compte a été créé avec succès.'
+            'Bienvenue ' . ($user->prenom ?? $user->name) . ' ! Votre compte a été créé avec succès. '
+            . 'Un email de vérification vous a été envoyé à ' . $user->email . '.'
         );
     }
 
