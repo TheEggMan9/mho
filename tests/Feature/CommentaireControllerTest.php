@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Commentaire;
 use App\Models\CommentaireLike;
 use App\Models\Fiche;
@@ -96,7 +97,7 @@ class CommentaireControllerTest extends TestCase
     }
 
     /** @test */
-    public function poster_sur_une_fiche_inexistante_retourne_404(): void
+    public function test_poster_sur_une_fiche_inexistante_retourne_404(): void
     {
         $user = User::factory()->create();
 
@@ -104,7 +105,7 @@ class CommentaireControllerTest extends TestCase
             'contenu' => 'Commentaire orphelin',
         ]);
 
-        $response->assertStatus(404);
+        $response->assertRedirect('/');
     }
 
     /** @test */

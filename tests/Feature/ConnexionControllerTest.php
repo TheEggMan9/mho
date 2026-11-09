@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ConnexionControllerTest extends TestCase
 {
@@ -21,7 +22,7 @@ class ConnexionControllerTest extends TestCase
         RateLimiter::clear('test@example.com|127.0.0.1');
     }
 
-    /** @test */
+    #[Test]
     public function le_formulaire_de_connexion_saffiche(): void
     {
         $response = $this->get('/onglet/seConnecter');
@@ -30,7 +31,7 @@ class ConnexionControllerTest extends TestCase
         $response->assertViewIs('onglet.seConnecter');
     }
 
-    /** @test */
+    #[Test]
     public function un_utilisateur_peut_se_connecter_avec_les_bons_identifiants(): void
     {
         $user = User::factory()->create([
@@ -47,7 +48,7 @@ class ConnexionControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
+    #[Test]
     public function la_connexion_echoue_avec_un_mauvais_mot_de_passe(): void
     {
         User::factory()->create([
@@ -65,7 +66,7 @@ class ConnexionControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function la_connexion_echoue_si_lemail_nexiste_pas(): void
     {
         $response = $this->from('/onglet/seConnecter')->post('/onglet/seConnecter', [
@@ -78,7 +79,7 @@ class ConnexionControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function la_validation_echoue_si_email_ou_password_manquant(): void
     {
         $response = $this->post('/onglet/seConnecter', [
@@ -89,7 +90,7 @@ class ConnexionControllerTest extends TestCase
         $response->assertSessionHasErrors(['email', 'password']);
     }
 
-    /** @test */
+    #[Test]
     public function la_connexion_est_bloquee_apres_trop_de_tentatives(): void
     {
         $user = User::factory()->create([
@@ -113,7 +114,7 @@ class ConnexionControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function un_utilisateur_connecte_peut_se_deconnecter(): void
     {
         $user = User::factory()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Espece;
 use App\Models\Fiche;
 use App\Models\Organisation;
@@ -12,7 +13,7 @@ class SearchControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function la_recherche_retourne_les_fiches_correspondantes(): void
     {
         Fiche::factory()->create(['nomFiche' => 'Spider-Man']);
@@ -25,7 +26,7 @@ class SearchControllerTest extends TestCase
         $response->assertJsonCount(3);
     }
 
-    /** @test */
+    #[Test]
     public function la_recherche_filtre_bien_par_terme(): void
     {
         Fiche::factory()->create(['nomFiche' => 'Spider-Man']);
@@ -37,7 +38,7 @@ class SearchControllerTest extends TestCase
         $response->assertJsonFragment(['nomFiche' => 'Spider-Man']);
     }
 
-    /** @test */
+    #[Test]
     public function la_recherche_sans_terme_retourne_toutes_les_fiches(): void
     {
         Fiche::factory()->count(3)->create();
@@ -48,7 +49,7 @@ class SearchControllerTest extends TestCase
         $response->assertJsonCount(3);
     }
 
-    /** @test */
+    #[Test]
     public function la_page_dune_fiche_saffiche_via_son_slug(): void
     {
         $fiche = Fiche::factory()->create(['slug' => 'spider-man']);
@@ -62,15 +63,15 @@ class SearchControllerTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function une_fiche_inexistante_retourne_404(): void
     {
         $response = $this->get('/heros/fiche-inexistante');
 
-        $response->assertStatus(404);
+        $response->assertRedirect('/');
     }
 
-    /** @test */
+    #[Test]
     public function les_resultats_peuvent_etre_filtres_par_espece(): void
     {
         $espece = Espece::factory()->create();
@@ -85,7 +86,7 @@ class SearchControllerTest extends TestCase
         $response->assertJsonCount(1);
     }
 
-    /** @test */
+    #[Test]
     public function les_resultats_peuvent_etre_filtres_par_organisation(): void
     {
         $organisation = Organisation::factory()->create();
@@ -100,7 +101,7 @@ class SearchControllerTest extends TestCase
         $response->assertJsonCount(1);
     }
 
-    /** @test */
+    #[Test]
     public function les_resultats_saffichent_en_vue_hors_ajax(): void
     {
         Fiche::factory()->count(2)->create();

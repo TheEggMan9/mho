@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ class SupprimerCompteControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function un_utilisateur_peut_supprimer_son_compte_avec_le_bon_mot_de_passe(): void
     {
         $user = User::factory()->create([
@@ -27,7 +28,7 @@ class SupprimerCompteControllerTest extends TestCase
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 
-    /** @test */
+    #[Test]
     public function la_suppression_echoue_avec_un_mauvais_mot_de_passe(): void
     {
         $user = User::factory()->create([
@@ -46,7 +47,7 @@ class SupprimerCompteControllerTest extends TestCase
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }
 
-    /** @test */
+    #[Test]
     public function la_suppression_echoue_si_le_mot_de_passe_est_manquant(): void
     {
         $user = User::factory()->create();
@@ -59,7 +60,7 @@ class SupprimerCompteControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    /** @test */
+    #[Test]
     public function un_invite_ne_peut_pas_supprimer_de_compte(): void
     {
         $user = User::factory()->create();

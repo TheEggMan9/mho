@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Mail\WelcomeEmail;
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class CreerCompteControllerTest extends TestCase
@@ -25,7 +28,7 @@ class CreerCompteControllerTest extends TestCase
         ], $overrides);
     }
 
-    /** @test */
+    #[Test]
     public function le_formulaire_dinscription_saffiche(): void
     {
         $response = $this->get('/onglet/creerCompte');
@@ -34,14 +37,14 @@ class CreerCompteControllerTest extends TestCase
         $response->assertViewIs('onglet.creerCompte');
     }
 
-    /** @test */
+    #[Test]
     public function un_utilisateur_peut_sinscrire_avec_des_donnees_valides(): void
     {
-        Mail::fake();
+        Notification::fake();
 
         $response = $this->post('/onglet/creerCompte', $this->validPayload());
 
-        $response->assertRedirect('/');
+        $response->assertRedirect(route('verification.notice'));
         $this->assertDatabaseHas('users', [
             'email' => 'jean.dupont@example.com',
             'pseudo' => 'jean_dupont',
@@ -52,12 +55,10 @@ class CreerCompteControllerTest extends TestCase
         $this->assertAuthenticatedAs($user);
         $this->assertTrue(Hash::check('MotDePasse1!', $user->password));
 
-        Mail::assertSent(WelcomeEmail::class, function ($mail) use ($user) {
-            return $mail->hasTo($user->email);
-        });
+        Notification::assertSentTo($user, VerifyEmailNotification::class);
     }
 
-    /** @test */
+    #[Test]
     public function linscription_echoue_si_lemail_est_deja_pris(): void
     {
         User::factory()->create(['email' => 'jean.dupont@example.com']);
@@ -71,7 +72,7 @@ class CreerCompteControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function linscription_echoue_si_le_pseudo_est_deja_pris(): void
     {
         User::factory()->create(['pseudo' => 'jean_dupont']);
@@ -85,7 +86,7 @@ class CreerCompteControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function linscription_echoue_si_le_mot_de_passe_ne_respecte_pas_le_format(): void
     {
         $response = $this->from('/onglet/creerCompte')->post(
@@ -100,7 +101,7 @@ class CreerCompteControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function linscription_echoue_si_la_confirmation_du_mot_de_passe_ne_correspond_pas(): void
     {
         $response = $this->from('/onglet/creerCompte')->post(
@@ -115,7 +116,7 @@ class CreerCompteControllerTest extends TestCase
         $this->assertGuest();
     }
 
-    /** @test */
+    #[Test]
     public function linscription_echoue_si_des_champs_obligatoires_sont_manquants(): void
     {
         $response = $this->post('/onglet/creerCompte', []);
